@@ -1,8 +1,12 @@
 const express = require('express')
 const app = express()
+var bodyParser = require('body-parser')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 
 const envPath = './src/environment/'
-
 const dbFactory = require(envPath + 'DBFactory')
 
 module.exports = function (config, proxy, router, controllers) {

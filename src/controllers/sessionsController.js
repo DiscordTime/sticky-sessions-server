@@ -17,6 +17,11 @@ module.exports = function (proxy) {
       var sessionId = req.params.sessionId
       proxy.getSession(sessionId, res, dataCallback)
     }
+
+    createSession (req, res) {
+      var topics = req.body.topics
+      proxy.createSession(topics, res, dataCallback)
+    }
   }
   return new SessionsController(proxy)
 }
