@@ -1,9 +1,19 @@
-module.exports.getNotes = function (sessionId, res, callback) {
-  this.db.getNotes(sessionId, (err, snapshot) => {
-    callback(err, snapshot, res)
-  })
+class Proxy {
+  init (db) {
+    this.db = db
+  }
+
+  getNotes (sessionId, res, callback) {
+    this.db.getNotes(sessionId, (err, snapshot) => {
+      callback(err, snapshot, res)
+    })
+  }
+
+  getSession (sessionId, res, callback) {
+    this.db.getSession(sessionId, (err, snapshot) => {
+      callback(err, snapshot, res)
+    })
+  }
 }
 
-module.exports.init = function (db) {
-  this.db = db
-}
+module.exports = new Proxy()
