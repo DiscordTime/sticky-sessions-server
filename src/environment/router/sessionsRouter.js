@@ -6,5 +6,9 @@ module.exports = function (sessionsController) {
     sessionsController.getSession(req, res)
   })
 
+  app.post('/', (req, res) => {
+    sessionsController.createSession(req, res)
+  })
+
   return app
 }

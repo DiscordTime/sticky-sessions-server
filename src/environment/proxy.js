@@ -14,6 +14,12 @@ class Proxy {
       callback(err, snapshot, res)
     })
   }
+
+  createSession (topics, res, callback) {
+    this.db.createSession(topics, (err, data) => {
+      callback(err, data, res)
+    })
+  }
 }
 
 module.exports = new Proxy()

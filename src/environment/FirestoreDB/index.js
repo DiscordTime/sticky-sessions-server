@@ -8,6 +8,8 @@ const db = admin.firestore()
 const settings = {timestampsInSnapshots: true}
 db.settings(settings)
 
+var FieldValue = require('firebase-admin').firestore.FieldValue
+
 const tableInfo = {
   table_notes: 'notes',
   column_notes_session_id: 'sessionId',
@@ -59,10 +61,29 @@ function executeGetDoc (table, docId, callback) {
   executeDocQuery(query, callback)
 }
 
+function executeAddDoc (table, topics, callback) {
+  var session = {
+    topics: topics,
+    timestamp: FieldValue.serverTimestamp()
+  }
+  db.collection(table).add(session)
+    .then(ref => {
+      session['id'] = ref.id
+      callback(null, session)
+    })
+    .catch(err => {
+      callback(err, null)
+    })
+}
+
 module.exports.getNotes = function (sessionId, callback) {
   executeGet(tableInfo.table_notes, tableInfo.column_notes_session_id, sessionId, callback)
 }
 
 module.exports.getSession = function (sessionId, callback) {
   executeGetDoc(tableInfo.table_sessions, sessionId, callback)
+}
+
+module.exports.createSession = function (topics, callback) {
+  executeAddDoc(tableInfo.table_sessions, topics, callback)
 }
