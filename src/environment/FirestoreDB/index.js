@@ -61,15 +61,11 @@ function executeGetDoc (table, docId, callback) {
   executeDocQuery(query, callback)
 }
 
-function executeAddDoc (table, topics, callback) {
-  var session = {
-    topics: topics,
-    timestamp: FieldValue.serverTimestamp()
-  }
-  db.collection(table).add(session)
+function executeAddDoc (table, docData, callback) {
+  db.collection(table).add(docData)
     .then(ref => {
-      session['id'] = ref.id
-      callback(null, session)
+      docData['id'] = ref.id
+      callback(null, docData)
     })
     .catch(err => {
       callback(err, null)
@@ -85,5 +81,9 @@ module.exports.getSession = function (sessionId, callback) {
 }
 
 module.exports.createSession = function (topics, callback) {
-  executeAddDoc(tableInfo.table_sessions, topics, callback)
+  var session = {
+    topics: topics,
+    timestamp: FieldValue.serverTimestamp()
+  }
+  executeAddDoc(tableInfo.table_sessions, session, callback)
 }

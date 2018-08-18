@@ -1,3 +1,5 @@
+const Joi = require('joi')
+
 var dataCallback = function (err, data, res) {
   if (err) {
     console.err(err)
@@ -20,7 +22,13 @@ module.exports = function (proxy) {
 
     createSession (req, res) {
       var topics = req.body.topics
-      proxy.createSession(topics, res, dataCallback)
+      Joi.validate(topics, Joi.array().items(Joi.string()), function (err, value) {
+        if (err) {
+          res.send(err)
+          return
+        }
+        proxy.createSession(value, res, dataCallback)
+      })
     }
   }
   return new SessionsController(proxy)
