@@ -6,5 +6,9 @@ module.exports = function (notesController) {
     notesController.getNotesFromSession(req, res)
   })
 
+  app.post('/', (req, res) => {
+    notesController.addNewNoteToSession(req, res)
+  })
+
   return app
 }

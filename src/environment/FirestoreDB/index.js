@@ -87,3 +87,7 @@ module.exports.createSession = function (topics, callback) {
   }
   executeAddDoc(tableInfo.table_sessions, session, callback)
 }
+
+module.exports.addNewNoteToSession = function (note, callback) {
+  executeAddDoc(tableInfo.table_notes, note, callback)
+}
