@@ -9,6 +9,12 @@ class Proxy {
     })
   }
 
+  addNewNoteToSession (note, res, callback) {
+    this.db.addNewNoteToSession(note, (err, data) => {
+      callback(err, data, res)
+    })
+  }
+
   getSession (sessionId, res, callback) {
     this.db.getSession(sessionId, (err, snapshot) => {
       callback(err, snapshot, res)
