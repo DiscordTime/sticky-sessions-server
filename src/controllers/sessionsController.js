@@ -16,7 +16,8 @@ module.exports = function (proxy) {
     }
 
     getSession (req, res) {
-      var sessionId = req.params.sessionId
+      var sessionId = req.params.session_id
+      console.log(sessionId)
       proxy.getSession(sessionId, res, dataCallback)
     }
 
