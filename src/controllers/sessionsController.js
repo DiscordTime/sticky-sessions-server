@@ -1,12 +1,20 @@
 const Joi = require('joi')
 
+function mapToSession (data) {
+  return {
+    session_id: data.id,
+    topics: data.topics,
+    timestamp: data.timestamp
+  }
+}
+
 var dataCallback = function (err, data, res) {
   if (err) {
     console.err(err)
     res.send(err)
     return
   }
-  res.send(data)
+  res.send(mapToSession(data))
 }
 
 module.exports = function (proxy) {
@@ -17,7 +25,6 @@ module.exports = function (proxy) {
 
     getSession (req, res) {
       var sessionId = req.params.session_id
-      console.log(sessionId)
       proxy.getSession(sessionId, res, dataCallback)
     }
 
