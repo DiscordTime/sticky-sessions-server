@@ -21,7 +21,6 @@ var dataCallback = function (err, data, res) {
     res.send('ERROR!')
     return
   }
-
   res.send(data)
 }
 
@@ -29,7 +28,7 @@ function getDefaultJoiNoteSchema () {
   return Joi.object().keys({
     description: Joi.string().required(),
     user: Joi.string().required(),
-    session_id: Joi.string().required(),
+    sessionId: Joi.string().required(),
     topic: Joi.string().required()
   })
 }
@@ -57,7 +56,6 @@ module.exports = function (proxy) {
     addNewNoteToSession (req, res) {
       const schema = getDefaultJoiNoteSchema()
       const note = getDefaultNoteFromRequest(req)
-
       Joi.validate(note, schema, function (err, value) {
         if (err) {
           res.send(err)
