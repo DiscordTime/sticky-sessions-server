@@ -29,7 +29,7 @@ module.exports = function (proxy) {
     }
 
     createSession (req, res) {
-      var topics = req.body.topics
+      const topics = req.body
       Joi.validate(topics, Joi.array().items(Joi.string()), function (err, value) {
         if (err) {
           res.send(err)
