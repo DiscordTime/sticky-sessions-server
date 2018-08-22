@@ -12,7 +12,7 @@ var FieldValue = require('firebase-admin').firestore.FieldValue
 
 const tableInfo = {
   table_notes: 'notes',
-  column_notes_session_id: 'sessionId',
+  column_notes_session_id: 'session_id',
   column_notes_description: 'description',
   table_sessions: 'sessions'
 }
