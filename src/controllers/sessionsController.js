@@ -10,7 +10,7 @@ function mapToSession (data) {
 
 var dataCallback = function (err, data, res) {
   if (err) {
-    console.err(err)
+    res.status(503)    
     res.send(err)
     return
   }
@@ -32,6 +32,7 @@ module.exports = function (proxy) {
       const topics = req.body
       Joi.validate(topics, Joi.array().items(Joi.string()), function (err, value) {
         if (err) {
+          res.status(400)
           res.send(err)
           return
         }

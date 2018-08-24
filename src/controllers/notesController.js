@@ -2,8 +2,8 @@ const Joi = require('joi')
 
 var snapshotCallback = function (err, snapshot, res) {
   if (err) {
-    console.err(err)
-    res.send('ERROR!')
+    res.status(503)
+    res.send(err)
     return
   }
 
@@ -17,8 +17,8 @@ var snapshotCallback = function (err, snapshot, res) {
 
 var dataCallback = function (err, data, res) {
   if (err) {
-    console.err(err)
-    res.send('ERROR!')
+    res.status(503)
+    res.send(err)
     return
   }
   res.send(data)
@@ -58,6 +58,7 @@ module.exports = function (proxy) {
       const note = getDefaultNoteFromRequest(req)
       Joi.validate(note, schema, function (err, value) {
         if (err) {
+          res.status(400)
           res.send(err)
           return
         }
