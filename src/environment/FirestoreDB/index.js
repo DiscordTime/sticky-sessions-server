@@ -5,7 +5,7 @@ admin.initializeApp({
 })
 
 const db = admin.firestore()
-const settings = {timestampsInSnapshots: true}
+const settings = { timestampsInSnapshots: true }
 db.settings(settings)
 
 var FieldValue = require('firebase-admin').firestore.FieldValue
@@ -64,7 +64,9 @@ function executeGetDoc (table, docId, callback) {
 function executeAddDoc (table, docData, callback) {
   db.collection(table).add(docData)
     .then(ref => {
-      docData['id'] = ref.id
+      if (ref.id) {
+        docData['id'] = ref.id
+      }
       callback(null, docData)
     })
     .catch(err => {

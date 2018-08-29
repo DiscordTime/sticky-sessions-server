@@ -10,7 +10,7 @@ function mapToSession (data) {
 
 var dataCallback = function (err, data, res) {
   if (err) {
-    res.status(503)    
+    res.status(503)
     res.send(err)
     return
   }
