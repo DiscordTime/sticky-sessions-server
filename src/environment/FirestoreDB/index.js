@@ -45,10 +45,14 @@ function executeDocQuery (query, callback) {
     })
 }
 
-function executeGet (table, column, data, callback) {
+function executeGet (table, data, callback) {
   var query = db.collection(table)
+
+  console.log(data)
   if (data) {
-    query = query.where(column, '==', data)
+    for (var item in data) {
+      query = query.where(item, '==', data[item])
+    }
   }
   executeQuery(query, callback)
 }
@@ -74,8 +78,8 @@ function executeAddDoc (table, docData, callback) {
     })
 }
 
-module.exports.getNotes = function (sessionId, callback) {
-  executeGet(tableInfo.table_notes, tableInfo.column_notes_session_id, sessionId, callback)
+module.exports.getNotes = function (params, callback) {
+  executeGet(tableInfo.table_notes, params, callback)
 }
 
 module.exports.getSession = function (sessionId, callback) {

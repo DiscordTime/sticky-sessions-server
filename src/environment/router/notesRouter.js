@@ -2,7 +2,7 @@ const express = require('express')
 var app = express()
 
 module.exports = function (notesController) {
-  app.get('/:session_id', (req, res) => {
+  app.get('/:session_id/:user?', (req, res) => {
     notesController.getNotesFromSession(req, res)
   })
 

@@ -3,8 +3,8 @@ class Proxy {
     this.db = db
   }
 
-  getNotes (sessionId, res, callback) {
-    this.db.getNotes(sessionId, (err, snapshot) => {
+  getNotes (params, res, callback) {
+    this.db.getNotes(params, (err, snapshot) => {
       callback(err, snapshot, res)
     })
   }

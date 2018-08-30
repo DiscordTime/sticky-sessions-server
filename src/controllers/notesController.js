@@ -49,8 +49,14 @@ module.exports = function (proxy) {
     }
 
     getNotesFromSession (req, res) {
-      var sessionId = req.params.session_id
-      proxy.getNotes(sessionId, res, snapshotCallback)
+      const sessionId = req.params.session_id
+      const user = req.params.user
+      const params = {}
+      params['session_id'] = sessionId
+      if (user) {
+        params['user'] = user
+      }
+      proxy.getNotes(params, res, snapshotCallback)
     }
 
     addNewNoteToSession (req, res) {
