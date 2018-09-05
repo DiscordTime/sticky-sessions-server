@@ -78,6 +78,16 @@ function executeAddDoc (table, docData, callback) {
     })
 }
 
+function executeDeleteDoc (table, docId, callback) {
+  db.collection(table).doc(docId).delete()
+    .then(resp => {
+      callback(null, resp)
+    })
+    .catch(err => {
+      callback(err, null)
+    })
+}
+
 module.exports.getNotes = function (params, callback) {
   executeGet(tableInfo.table_notes, params, callback)
 }
@@ -96,4 +106,8 @@ module.exports.createSession = function (topics, callback) {
 
 module.exports.addNewNoteToSession = function (note, callback) {
   executeAddDoc(tableInfo.table_notes, note, callback)
+}
+
+module.exports.deleteNote = function (noteId, callback) {
+  executeDeleteDoc(tableInfo.table_notes, noteId, callback)
 }

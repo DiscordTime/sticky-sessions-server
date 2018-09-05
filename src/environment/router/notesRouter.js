@@ -10,5 +10,9 @@ module.exports = function (notesController) {
     notesController.addNewNoteToSession(req, res)
   })
 
+  app.delete('/:note_id', (req, res) => {
+    notesController.deleteNote(req, res)
+  })
+
   return app
 }
