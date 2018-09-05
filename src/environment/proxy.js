@@ -15,6 +15,12 @@ class Proxy {
     })
   }
 
+  deleteNote (noteId, callback) {
+    this.db.deleteNote(noteId, (err, resp) => {
+      callback(err, resp)
+    })
+  }
+
   getSession (sessionId, res, callback) {
     this.db.getSession(sessionId, (err, snapshot) => {
       callback(err, snapshot, res)

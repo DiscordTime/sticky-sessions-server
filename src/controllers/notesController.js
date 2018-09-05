@@ -71,6 +71,18 @@ module.exports = function (proxy) {
         proxy.addNewNoteToSession(value, res, dataCallback)
       })
     }
+
+    deleteNote (req, res) {
+      const noteId = req.params.note_id
+      proxy.deleteNote(noteId, (err, resp) => {
+        if (err) {
+          res.send(err)
+          return
+        }
+        res.status(200)
+        res.send(resp)
+      })
+    }
   }
   return new NotesController(proxy)
 }
