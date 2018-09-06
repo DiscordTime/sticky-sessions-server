@@ -39,6 +39,17 @@ module.exports = function (proxy) {
         proxy.createSession(value, res, dataCallback)
       })
     }
+
+    getSessions (req, res) {
+      proxy.getSessions((err, sessions) => {
+        if (err) {
+          res.status(503)
+          res.send(err)
+          return
+        }
+        res.send(sessions)
+      })
+    }
   }
   return new SessionsController(proxy)
 }

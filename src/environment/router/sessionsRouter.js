@@ -10,5 +10,9 @@ module.exports = function (sessionsController) {
     sessionsController.createSession(req, res)
   })
 
+  app.get('/', (req, res) => {
+    sessionsController.getSessions(req, res)
+  })
+
   return app
 }

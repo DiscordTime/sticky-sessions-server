@@ -48,7 +48,6 @@ function executeDocQuery (query, callback) {
 function executeGet (table, data, callback) {
   var query = db.collection(table)
 
-  console.log(data)
   if (data) {
     for (var item in data) {
       query = query.where(item, '==', data[item])
@@ -88,8 +87,17 @@ function executeDeleteDoc (table, docId, callback) {
     })
 }
 
-module.exports.getNotes = function (params, callback) {
-  executeGet(tableInfo.table_notes, params, callback)
+module.exports.getSessions = function (callback) {
+  executeGet(tableInfo.table_sessions, null, (err, snapshot) => {
+    if (err) {
+      callback(err, null)
+      return
+    }
+    const mapper = require('./mapper')
+    mapper.mapSnapshotToArray(snapshot, (sessions) => {
+      callback(null, sessions)
+    })
+  })
 }
 
 module.exports.getSession = function (sessionId, callback) {
@@ -102,6 +110,10 @@ module.exports.createSession = function (topics, callback) {
     timestamp: FieldValue.serverTimestamp()
   }
   executeAddDoc(tableInfo.table_sessions, session, callback)
+}
+
+module.exports.getNotes = function (params, callback) {
+  executeGet(tableInfo.table_notes, params, callback)
 }
 
 module.exports.addNewNoteToSession = function (note, callback) {
