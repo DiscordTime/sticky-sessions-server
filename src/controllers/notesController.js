@@ -10,6 +10,7 @@ var snapshotCallback = function (err, snapshot, res) {
   var array = []
   snapshot.forEach(doc => {
     var data = doc.data()
+    data['id'] = doc.id
     array.push(data)
   })
   res.send(array)
@@ -76,10 +77,10 @@ module.exports = function (proxy) {
       const noteId = req.params.note_id
       proxy.deleteNote(noteId, (err, resp) => {
         if (err) {
+          res.status(503)
           res.send(err)
           return
         }
-        res.status(200)
         res.send(resp)
       })
     }
