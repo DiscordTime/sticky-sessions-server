@@ -1,21 +1,5 @@
 const Joi = require('joi')
 
-var snapshotCallback = function (err, snapshot, res) {
-  if (err) {
-    res.status(503)
-    res.send(err)
-    return
-  }
-
-  var array = []
-  snapshot.forEach(doc => {
-    var data = doc.data()
-    data['id'] = doc.id
-    array.push(data)
-  })
-  res.send(array)
-}
-
 var dataCallback = function (err, data, res) {
   if (err) {
     res.status(503)
@@ -57,7 +41,7 @@ module.exports = function (proxy) {
       if (user) {
         params['user'] = user
       }
-      proxy.getNotes(params, res, snapshotCallback)
+      proxy.getNotes(params, res, dataCallback)
     }
 
     addNewNoteToSession (req, res) {

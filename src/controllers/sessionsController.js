@@ -1,6 +1,7 @@
 const Joi = require('joi')
 
 function mapToSession (data) {
+  if (!data) return
   return {
     session_id: data.id,
     topics: data.topics,

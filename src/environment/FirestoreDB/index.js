@@ -73,6 +73,7 @@ function executeAddDoc (table, docData, callback) {
       callback(null, docData)
     })
     .catch(err => {
+      console.log('Error adding document', err)
       callback(err, null)
     })
 }
@@ -83,6 +84,7 @@ function executeDeleteDoc (table, docId, callback) {
       callback(null, resp)
     })
     .catch(err => {
+      console.log('Error deleting document', err)
       callback(err, null)
     })
 }
@@ -113,7 +115,17 @@ module.exports.createSession = function (topics, callback) {
 }
 
 module.exports.getNotes = function (params, callback) {
-  executeGet(tableInfo.table_notes, params, callback)
+  executeGet(tableInfo.table_notes, params, (err, snapshot) => {
+    if (err) {
+      callback(err, null)
+      return
+    }
+
+    const mapper = require('./mapper')
+    mapper.mapSnapshotToArray(snapshot, (sessions) => {
+      callback(null, sessions)
+    })
+  })
 }
 
 module.exports.addNewNoteToSession = function (note, callback) {
