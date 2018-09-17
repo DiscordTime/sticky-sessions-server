@@ -4,7 +4,8 @@
   "description": "Server side of StickySessions",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/eslint/bin/eslint.js . && node index.js"
+    "start": "./node_modules/eslint/bin/eslint.js . && node index.js",
+    "lint": "./node_modules/eslint/bin/eslint.js ."
   },
   "repository": {
     "type": "git",
