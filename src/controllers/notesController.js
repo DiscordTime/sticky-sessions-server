@@ -11,7 +11,7 @@ var dataCallback = function (err, data, res) {
 
 function getDefaultJoiNoteSchema () {
   return Joi.object().keys({
-    description: Joi.string().required(),
+    description: Joi.string().required().max(100),
     user: Joi.string().required(),
     session_id: Joi.string().required(),
     topic: Joi.string().required()
