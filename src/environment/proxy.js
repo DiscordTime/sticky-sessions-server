@@ -36,6 +36,12 @@ class Proxy {
       callback(err, data, res)
     })
   }
+
+  closeSession (sessionId, callback) {
+    this.db.closeSession(sessionId, (err) => {
+      callback(err)
+    })
+  }
 }
 
 module.exports = new Proxy()

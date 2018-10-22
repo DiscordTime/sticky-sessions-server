@@ -14,7 +14,19 @@ const tableInfo = {
   table_notes: 'notes',
   column_notes_session_id: 'session_id',
   column_notes_description: 'description',
-  table_sessions: 'sessions'
+  table_sessions: 'sessions',
+  session_status_closed: 'closed'
+}
+
+function executeUpdate (table, id, data, callback) {
+  db.collection(table).doc(id).update(data)
+    .then(snapshot => {
+      callback()
+    })
+    .catch(err => {
+      console.error('Error closing session', err)
+      callback(err)
+    })
 }
 
 function executeQuery (query, callback) {
@@ -112,6 +124,11 @@ module.exports.createSession = function (topics, callback) {
     timestamp: FieldValue.serverTimestamp()
   }
   executeAddDoc(tableInfo.table_sessions, session, callback)
+}
+
+module.exports.closeSession = function (sessionId, callback) {
+  const data = { status: tableInfo.session_status_closed }
+  executeUpdate(tableInfo.table_sessions, sessionId, data, callback)
 }
 
 module.exports.getNotes = function (params, callback) {
