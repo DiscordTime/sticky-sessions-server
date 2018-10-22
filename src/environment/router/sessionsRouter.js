@@ -14,5 +14,9 @@ module.exports = function (sessionsController) {
     sessionsController.getSessions(req, res)
   })
 
+  app.post('/close/:session_id', (req, res) => {
+    sessionsController.closeSession(req, res)
+  })
+
   return app
 }

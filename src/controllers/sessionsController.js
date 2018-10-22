@@ -51,6 +51,18 @@ module.exports = function (proxy) {
         res.send(sessions)
       })
     }
+
+    closeSession (req, res) {
+      const sessionId = req.params.session_id
+      proxy.closeSession(sessionId, (err) => {
+        if (err) {
+          res.status(503)
+          res.send(err)
+          return
+        }
+        res.send(sessionId)
+      })
+    }
   }
   return new SessionsController(proxy)
 }
