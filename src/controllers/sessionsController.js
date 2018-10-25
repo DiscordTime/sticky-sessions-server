@@ -3,7 +3,7 @@ const Joi = require('joi')
 function mapToSession (data) {
   if (!data) return
   return {
-    session_id: data.id,
+    id: data.id,
     topics: data.topics,
     timestamp: data.timestamp
   }
