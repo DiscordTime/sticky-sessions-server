@@ -14,7 +14,8 @@ const tableInfo = {
   table_notes: 'notes',
   column_notes_session_id: 'session_id',
   column_notes_description: 'description',
-  table_sessions: 'sessions'
+  table_sessions: 'sessions',
+  table_teams: 'teams'
 }
 
 function executeQuery (query, callback) {
@@ -134,4 +135,24 @@ module.exports.addNewNoteToSession = function (note, callback) {
 
 module.exports.deleteNote = function (noteId, callback) {
   executeDeleteDoc(tableInfo.table_notes, noteId, callback)
+}
+
+module.exports.createTeam = function (team, callback) {
+  const params = {
+    'name': team.name
+  }
+  executeGet(tableInfo.table_teams, params, (err, querySnapshot) => {
+    if (err) {
+      callback(err, null)
+      return
+    }
+    if (querySnapshot._size > 0) {
+      const error = {
+        'message': 'There is already a team with that name. Please, choose another one.'
+      }
+      callback(error)
+      return
+    }
+    executeAddDoc(tableInfo.table_teams, team, callback)
+  })
 }

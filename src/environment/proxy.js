@@ -36,6 +36,12 @@ class Proxy {
       callback(err, data, res)
     })
   }
+
+  createTeam (team, callback) {
+    this.db.createTeam(team, (err, team) => {
+      callback(err, team)
+    })
+  }
 }
 
 module.exports = new Proxy()
