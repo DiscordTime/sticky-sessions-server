@@ -14,7 +14,8 @@ const tableInfo = {
   table_notes: 'notes',
   column_notes_session_id: 'session_id',
   column_notes_description: 'description',
-  table_sessions: 'sessions'
+  table_sessions: 'sessions',
+  column_sessions_timestamp: 'timestamp'
 }
 
 function executeQuery (query, callback) {
@@ -45,7 +46,7 @@ function executeDocQuery (query, callback) {
     })
 }
 
-function executeGet (table, data, callback) {
+function executeGet (table, data, callback, orderByField, orderByOrientation) {
   var query = db.collection(table)
 
   if (data) {
@@ -53,6 +54,11 @@ function executeGet (table, data, callback) {
       query = query.where(item, '==', data[item])
     }
   }
+
+  if (orderByField && orderByOrientation) {
+    query = query.orderBy(orderByField, orderByOrientation)
+  }
+
   executeQuery(query, callback)
 }
 
@@ -99,7 +105,7 @@ module.exports.getSessions = function (callback) {
     mapper.mapSnapshotToArray(snapshot, (sessions) => {
       callback(null, sessions)
     })
-  })
+  }, tableInfo.column_sessions_timestamp, 'desc')
 }
 
 module.exports.getSession = function (sessionId, callback) {
