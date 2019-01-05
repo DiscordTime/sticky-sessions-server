@@ -51,6 +51,19 @@ module.exports = function (proxy) {
         res.send(sessions)
       })
     }
+
+    getSessionsPaging (req, res) {
+      const limit = parseInt(req.params.limit)
+      const milliseconds = req.params.milliseconds
+      proxy.getSessionsPaging(limit, milliseconds, (err, sessions) => {
+        if (err) {
+          res.status(503)
+          res.send(err)
+          return
+        }
+        res.send(sessions)
+      })
+    }
   }
   return new SessionsController(proxy)
 }

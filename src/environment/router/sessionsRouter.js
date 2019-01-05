@@ -14,5 +14,9 @@ module.exports = function (sessionsController) {
     sessionsController.getSessions(req, res)
   })
 
+  app.get('/paging/:limit/:milliseconds?', (req, res) => {
+    sessionsController.getSessionsPaging(req, res)
+  })
+
   return app
 }

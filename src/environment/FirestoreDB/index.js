@@ -8,7 +8,7 @@ const db = admin.firestore()
 const settings = { timestampsInSnapshots: true }
 db.settings(settings)
 
-var FieldValue = require('firebase-admin').firestore.FieldValue
+var FieldValue = admin.firestore.FieldValue
 
 const tableInfo = {
   table_notes: 'notes',
@@ -89,8 +89,40 @@ function executeDeleteDoc (table, docId, callback) {
     })
 }
 
+function executePaginationGet (table, orderByColumn, orientation, limit, object, callback) {
+  var query = db.collection(table).orderBy(orderByColumn, orientation)
+  if (object) {
+    query = query.startAfter(object)
+  }
+  query.limit(limit).get()
+    .then(resp => {
+      callback(null, resp)
+    })
+    .catch(err => {
+      console.log('Error paginating docs', err)
+      callback(err, null)
+    })
+}
 module.exports.getSessions = function (callback) {
   executeGet(tableInfo.table_sessions, null, (err, snapshot) => {
+    if (err) {
+      callback(err, null)
+      return
+    }
+    const mapper = require('./mapper')
+    mapper.mapSnapshotToArray(snapshot, (sessions) => {
+      callback(null, sessions)
+    })
+  })
+}
+
+module.exports.getSessionsPaging = function (limit, milliseconds, callback) {
+  var timestamp = null
+  if (milliseconds) {
+    timestamp = admin.firestore.Timestamp.fromMillis(parseInt(milliseconds))
+  }
+  console.log(timestamp)
+  executePaginationGet(tableInfo.table_sessions, 'timestamp', 'desc', limit, timestamp, (err, snapshot) => {
     if (err) {
       callback(err, null)
       return

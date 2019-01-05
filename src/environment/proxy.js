@@ -31,6 +31,10 @@ class Proxy {
     this.db.getSessions(callback)
   }
 
+  getSessionsPaging (limit, milliseconds, callback) {
+    this.db.getSessionsPaging(limit, milliseconds, callback)
+  }
+
   createSession (topics, res, callback) {
     this.db.createSession(topics, (err, data) => {
       callback(err, data, res)
