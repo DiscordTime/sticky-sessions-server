@@ -9,6 +9,12 @@ var dataCallback = function (err, data, res) {
   res.send(data)
 }
 
+function getFullNoteJoiSchema () {
+  return getDefaultJoiNoteSchema().concat(Joi.object({
+    id: Joi.string().required()
+  }))
+}
+
 function getDefaultJoiNoteSchema () {
   return Joi.object().keys({
     description: Joi.string().required(),
@@ -66,6 +72,21 @@ module.exports = function (proxy) {
           return
         }
         res.send(resp)
+      })
+    }
+
+    editNote (req, res) {
+      const schema = getFullNoteJoiSchema()
+      const note = req.body
+      Joi.validate(note, schema, function (err, value) {
+        if (err) {
+          res.status(400)
+          res.send(err)
+          return
+        }
+        proxy.editNote(value, (err, returnedNote) => {
+          dataCallback(err, returnedNote, res)
+        })
       })
     }
   }

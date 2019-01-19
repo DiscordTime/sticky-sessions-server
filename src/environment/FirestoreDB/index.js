@@ -21,10 +21,11 @@ const tableInfo = {
 function executeUpdate (table, id, data, callback) {
   db.collection(table).doc(id).update(data)
     .then(snapshot => {
-      callback()
+      data['id'] = id
+      callback(data)
     })
     .catch(err => {
-      console.error('Error closing session', err)
+      console.error('Error updating object', err)
       callback(err)
     })
 }
@@ -147,6 +148,12 @@ module.exports.getNotes = function (params, callback) {
 
 module.exports.addNewNoteToSession = function (note, callback) {
   executeAddDoc(tableInfo.table_notes, note, callback)
+}
+
+module.exports.editNote = function (note, callback) {
+  const noteId = note.id
+  delete note.id
+  executeUpdate(tableInfo.table_notes, noteId, note, callback)
 }
 
 module.exports.deleteNote = function (noteId, callback) {

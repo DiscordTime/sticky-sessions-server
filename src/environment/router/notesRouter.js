@@ -14,5 +14,9 @@ module.exports = function (notesController) {
     notesController.deleteNote(req, res)
   })
 
+  app.post('/edit', (req, res) => {
+    notesController.editNote(req, res)
+  })
+
   return app
 }
