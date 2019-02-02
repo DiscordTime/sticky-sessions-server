@@ -32,7 +32,7 @@ module.exports = function (config, proxy, router, controllers) {
 }
 
 function startListening (port) {
-  app.listen(port, (req, res) => {
+  app.listen(process.env.PORT || port, (req, res) => {
     console.log('listening to port ' + port)
   })
 }
