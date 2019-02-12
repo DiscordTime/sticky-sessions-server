@@ -13,8 +13,8 @@ fi
 # Authenticate to Google Container Registry
 gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
 
-if [ "$CIRCLE_BRANCH" = "issue_55" ]; then
-  echo "Deploying application to Staging environment"
+if [ "$CIRCLE_BRANCH" = "dev" ]; then
+  echo "Deploying application to Staging"
 
   # Injects firebase DB file
   echo $FIREBASE_DB_STAG | base64 -di > src/environment/FirestoreDB/keys/serviceAccountKey.json
@@ -29,7 +29,7 @@ if [ "$CIRCLE_BRANCH" = "issue_55" ]; then
   docker push gcr.io/${GOOGLE_PROJECT_ID}/${IMAGE_NAME}:stag
   
   # Deploys application
-  gcloud --quiet compute ssh stick-sessions --zone us-east1-b -- 'cd /home/app && ./restart_service.sh gcr.io/${GOOGLE_PROJECT_ID}/${IMAGE_NAME}:stag'
+  gcloud --quiet compute ssh stick-sessions --zone us-east1-b -- "cd /home/app && ./restart_service.sh gcr.io/${GOOGLE_PROJECT_ID}/${IMAGE_NAME}:stag"
 elif [ "$CIRCLE_BRANCH" = "master" ]; then
   echo "Deploying application to Production environment"
 
@@ -48,5 +48,5 @@ elif [ "$CIRCLE_BRANCH" = "master" ]; then
   docker push gcr.io/${GOOGLE_PROJECT_ID}/${IMAGE_NAME}:latest
 
   # Deploys application
-  gcloud --quiet compute ssh stick-sessions --zone us-east1-b -- 'cd /home/app && ./restart_service.sh docker push gcr.io/${GOOGLE_PROJECT_ID}/${IMAGE_NAME}:latest'
+  gcloud --quiet compute ssh stick-sessions --zone us-east1-b -- "cd /home/app && ./restart_service.sh gcr.io/${GOOGLE_PROJECT_ID}/${IMAGE_NAME}:latest"
 fi
