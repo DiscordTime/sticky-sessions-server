@@ -132,6 +132,12 @@ module.exports.closeSession = function (sessionId, callback) {
   executeUpdate(tableInfo.table_sessions, sessionId, data, callback)
 }
 
+module.exports.editSession = function (session, callback) {
+  const sessionId = session.id
+  delete session.id
+  executeUpdate(tableInfo.table_sessions, sessionId, session, callback)
+}
+
 module.exports.getNotes = function (params, callback) {
   executeGet(tableInfo.table_notes, params, (err, snapshot) => {
     if (err) {

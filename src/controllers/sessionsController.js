@@ -18,6 +18,19 @@ var dataCallback = function (err, data, res) {
   res.send(mapToSession(data))
 }
 
+function getFullSessionJoiSchema () {
+  return getDefaultJoiSessionSchema().concat(Joi.object({
+    id: Joi.string().required(),
+    timestamp: Joi.date().timestamp().required()
+  }))
+}
+
+function getDefaultJoiSessionSchema () {
+  return Joi.object().keys({
+    topics: Joi.array().items(Joi.string()).required()
+  })
+}
+
 module.exports = function (proxy) {
   class SessionsController {
     constructor (proxy) {
@@ -61,6 +74,21 @@ module.exports = function (proxy) {
           return
         }
         res.send(sessionId)
+      })
+    }
+
+    editSession (req, res) {
+      const schema = getFullSessionJoiSchema()
+      const session = req.body
+      Joi.validate(session, schema, function (err, value) {
+        if (err) {
+          res.status(400)
+          res.send(err)
+          return
+        }
+        proxy.editSession(value, (err, returnedSession) => {
+          dataCallback(err, returnedSession, res)
+        })
       })
     }
   }

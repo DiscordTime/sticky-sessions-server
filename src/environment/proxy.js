@@ -46,6 +46,10 @@ class Proxy {
       callback(err)
     })
   }
+
+  editSession (session, callback) {
+    this.db.editSession(session, callback)
+  }
 }
 
 module.exports = new Proxy()
