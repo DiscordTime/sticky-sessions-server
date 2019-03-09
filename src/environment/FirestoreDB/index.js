@@ -21,8 +21,7 @@ const tableInfo = {
 function executeUpdate (table, id, data, callback) {
   db.collection(table).doc(id).update(data)
     .then(snapshot => {
-      data['id'] = id
-      callback(data)
+      executeGetDoc(table, id, callback)
     })
     .catch(err => {
       console.error('Error updating object', err)
