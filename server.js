@@ -6,21 +6,17 @@ app.use(bodyParser.urlencoded({
   extended: true
 }))
 
-const envPath = './src/environment/'
-const dbFactory = require(envPath + 'DBFactory')
-
-module.exports = function (config, proxy, router, controllers) {
+module.exports = function (config, proxy, router, controllers, db) {
   class Server {
-    constructor (config, proxy, router, controllers) {
+    constructor (config, proxy, router, controllers, db) {
       this.config = config
       this.proxy = proxy
       this.router = router
       this.controllers = controllers
+      this.db = db
     }
 
     start () {
-      var db = dbFactory.getDB(config.db)
-
       proxy.init(db)
       controllers.init(proxy)
       router.init(app, controllers)
