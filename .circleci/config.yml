@@ -38,7 +38,13 @@ jobs:
           name: Run lint
           command: npm run-script lint
 
-      #
+      # run tests
+      - run:
+          name: Run tests and upload to coveralls
+          command: |
+            npm run test-coverage
+            npm run test-coveralls
+  
   deploy:
     docker:
       - image: google/cloud-sdk
