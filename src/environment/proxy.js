@@ -1,5 +1,5 @@
 class Proxy {
-  init (db) {
+  constructor (db) {
     this.db = db
   }
 
@@ -52,4 +52,4 @@ class Proxy {
   }
 }
 
-module.exports = new Proxy()
+module.exports = Proxy

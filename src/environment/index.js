@@ -1,5 +1,5 @@
 const proxy = require('./proxy')
-const router = require('./router')
+const router = require('./../router')
 const controllers = require('../controllers')
 
 module.exports = {

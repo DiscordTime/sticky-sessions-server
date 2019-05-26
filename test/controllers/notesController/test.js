@@ -3,9 +3,11 @@ const describe = require('mocha').describe
 const it = require('mocha').it
 
 const db = require('./db')
-const proxy = require('./../../../src/environment/proxy')
-proxy.init(db)
-const notesController = require('./../../../src/controllers/notesController')(proxy)
+const Proxy = require('./../../../src/environment/proxy')
+const proxy = new Proxy(db)
+
+const NotesController = require('./../../../src/controllers/notesController')
+const notesController = new NotesController(proxy)
 
 const noteMock = require('./NoteMock')
 
@@ -18,7 +20,6 @@ describe('Notes Controller', function () {
       notesController.getNotesFromSession(req, res)
 
       expect(res.statusCalledWith).to.equal(200)
-      console.log(res.sendCalledWith)
     })
 
     it('Should throw error', function () {
