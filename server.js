@@ -1,34 +1,25 @@
-const express = require('express')
-const app = express()
-var bodyParser = require('body-parser')
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({
-  extended: true
-}))
-
-module.exports = function (config, proxy, router, controllers, db) {
-  class Server {
-    constructor (config, proxy, router, controllers, db) {
-      this.config = config
-      this.proxy = proxy
-      this.router = router
-      this.controllers = controllers
-      this.db = db
-    }
-
-    start () {
-      proxy.init(db)
-      controllers.init(proxy)
-      router.init(app, controllers)
-
-      startListening(config.port)
-    }
+class Server {
+  constructor (app, config, proxy, router, controllers, db) {
+    this.app = app
+    this.config = config
+    this.proxy = proxy
+    this.router = router
+    this.controllers = controllers
+    this.db = db
   }
-  return new Server(config, proxy, router, controllers)
+
+  start () {
+    this.router.init()
+
+    this.startListening()
+  }
+
+  startListening () {
+    var port = this.config.port
+    this.app.listen(process.env.PORT || port, (req, res) => {
+      console.log('listening to port ' + port)
+    })
+  }
 }
 
-function startListening (port) {
-  app.listen(process.env.PORT || port, (req, res) => {
-    console.log('listening to port ' + port)
-  })
-}
+module.exports = Server

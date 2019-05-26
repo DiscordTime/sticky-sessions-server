@@ -33,62 +33,59 @@ function getDefaultNoteFromRequest (req) {
   }
 }
 
-module.exports = function (proxy) {
-  class NotesController {
-    constructor (proxy) {
-      this.proxy = proxy
-    }
+class NotesController {
+  constructor (proxy) {
+    this.proxy = proxy
+  }
 
-    getNotesFromSession (req, res) {
-      const sessionId = req.params.session_id
-      const user = req.params.user
-      const params = {}
-      params['session_id'] = sessionId
-      if (user) {
-        params['user'] = user
+  getNotesFromSession (req, res) {
+    const sessionId = req.params.session_id
+    const user = req.params.user
+    const params = {}
+    params['session_id'] = sessionId
+    if (user) {
+      params['user'] = user
+    }
+    this.proxy.getNotes(params, res, dataCallback)
+  }
+
+  addNewNoteToSession (req, res) {
+    const schema = getDefaultJoiNoteSchema()
+    const note = getDefaultNoteFromRequest(req)
+    const { error, value } = Joi.validate(note, schema)
+    if (error) {
+      res.status(400)
+      res.send(error)
+    } else {
+      this.proxy.addNewNoteToSession(value, res, dataCallback)
+    }
+  }
+
+  deleteNote (req, res) {
+    const noteId = req.params.note_id
+    this.proxy.deleteNote(noteId, (err, resp) => {
+      if (err) {
+        res.status(503)
+        res.send(err)
+        return
       }
-      proxy.getNotes(params, res, dataCallback)
-    }
+      res.send(resp)
+    })
+  }
 
-    addNewNoteToSession (req, res) {
-      const schema = getDefaultJoiNoteSchema()
-      const note = getDefaultNoteFromRequest(req)
-      Joi.validate(note, schema, function (err, value) {
-        if (err) {
-          res.status(400)
-          res.send(err)
-          return
-        }
-        proxy.addNewNoteToSession(value, res, dataCallback)
-      })
-    }
-
-    deleteNote (req, res) {
-      const noteId = req.params.note_id
-      proxy.deleteNote(noteId, (err, resp) => {
-        if (err) {
-          res.status(503)
-          res.send(err)
-          return
-        }
-        res.send(resp)
-      })
-    }
-
-    editNote (req, res) {
-      const schema = getFullNoteJoiSchema()
-      const note = req.body
-      Joi.validate(note, schema, function (err, value) {
-        if (err) {
-          res.status(400)
-          res.send(err)
-          return
-        }
-        proxy.editNote(value, (err, returnedNote) => {
-          dataCallback(err, returnedNote, res)
-        })
+  editNote (req, res) {
+    const schema = getFullNoteJoiSchema()
+    const note = req.body
+    const { error, value } = Joi.validate(note, schema)
+    if (error) {
+      res.status(400)
+      res.send(error)
+    } else {
+      this.proxy.editNote(value, (err, returnedNote) => {
+        dataCallback(err, returnedNote, res)
       })
     }
   }
-  return new NotesController(proxy)
 }
+
+module.exports = NotesController
