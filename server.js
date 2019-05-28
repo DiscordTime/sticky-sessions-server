@@ -1,16 +1,12 @@
 class Server {
-  constructor (app, config, proxy, router, controllers, db) {
+  constructor (app, config, router) {
     this.app = app
     this.config = config
-    this.proxy = proxy
     this.router = router
-    this.controllers = controllers
-    this.db = db
   }
 
   start () {
     this.router.init()
-
     this.startListening()
   }
 

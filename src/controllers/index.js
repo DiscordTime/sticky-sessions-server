@@ -1,12 +1,12 @@
 const NotesController = require('./notesController')
 
-class ControllerProvider {
-  constructor (proxy) {
-    this.proxy = proxy
+class ControllersProvider {
+  constructor (notesRepository) {
+    this.notesRepository = notesRepository
   }
 
-  getNotesController () {
-    return new NotesController(this.proxy)
+  provideNotesController () {
+    return new NotesController(this.notesRepository)
   }
 
   getSessionsController () {
@@ -14,4 +14,4 @@ class ControllerProvider {
   }
 }
 
-module.exports = ControllerProvider
+module.exports = ControllersProvider

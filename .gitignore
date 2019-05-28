@@ -6,3 +6,5 @@ src/environment/FirestoreDB/keys/serviceAccountKey.json
 
 # istanbul test result outout
 .nyc_output
+
+.DS_Store

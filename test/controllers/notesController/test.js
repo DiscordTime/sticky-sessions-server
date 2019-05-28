@@ -2,7 +2,7 @@ const expect = require('chai').expect
 const describe = require('mocha').describe
 const it = require('mocha').it
 
-const db = require('./db')
+const db = require('../../db')
 const Proxy = require('./../../../src/environment/proxy')
 const proxy = new Proxy(db)
 
@@ -20,14 +20,6 @@ describe('Notes Controller', function () {
       notesController.getNotesFromSession(req, res)
 
       expect(res.statusCalledWith).to.equal(200)
-    })
-
-    it('Should throw error', function () {
-      var req = noteMock.createReqNotesSessions('-1', null)
-      var res = noteMock.createRes()
-      notesController.getNotesFromSession(req, res)
-
-      expect(res.statusCalledWith).to.equal(503)
     })
   })
 

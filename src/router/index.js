@@ -9,7 +9,7 @@ class RouterProvider {
   }
 
   init () {
-    var notesRouter = new NotesRouter(this.controllers.getNotesController())
+    var notesRouter = new NotesRouter(this.controllers.provideNotesController())
     this.app.use(notesFromSessionURL, notesRouter.getRoutes())
 
     var sessionsRouter = require('./sessionsRouter')(this.controllers.getSessionsController())
