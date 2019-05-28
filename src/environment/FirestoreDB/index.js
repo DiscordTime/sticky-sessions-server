@@ -18,6 +18,33 @@ const tableInfo = {
   session_status_closed: 'closed'
 }
 
+class FirestoreDB {
+  async executeQuery (query) {
+    try {
+      const snapshot = query.get()
+      const mapper = require('./mapper')
+      const data = await mapper.mapSnapshotToArrayAsync(snapshot)
+      return data
+    } catch (err) {
+      console.error('Error getting snapshot', err)
+      throw err
+    }
+  }
+
+  async executeGet (table, data) {
+    var query = db.collection(table)
+
+    if (data) {
+      for (var item in data) {
+        console.log('item', item)
+        console.log('data', data)
+        query = query.where(item, '==', data[item])
+      }
+    }
+    return executeQuery(query)
+  }
+}
+
 function executeUpdate (table, id, data, callback) {
   db.collection(table).doc(id).update(data)
     .then(snapshot => {
@@ -164,3 +191,5 @@ module.exports.editNote = function (note, callback) {
 module.exports.deleteNote = function (noteId, callback) {
   executeDeleteDoc(tableInfo.table_notes, noteId, callback)
 }
+
+module.exports = FirestoreDB

@@ -1,9 +1,11 @@
 class DBMock {
-  getNotes (params, callback) {
-    if (params.session_id === '-1') {
-      callback(new Error('error'), null)
+  async getNotes (params) {
+    if (!params.session_id) {
+      throw new Error('No session id passed')
+    } else if (params.session_id === -1) {
+      throw new Error('invalid session id')
     } else {
-      callback(null, { sessions: [1, 2, 3] })
+      return [1, 2, 3]
     }
   }
 

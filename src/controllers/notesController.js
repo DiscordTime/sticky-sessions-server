@@ -34,19 +34,12 @@ function getDefaultNoteFromRequest (req) {
 }
 
 class NotesController {
-  constructor (proxy) {
-    this.proxy = proxy
+  constructor (notesRepository) {
+    this.notesRepository = notesRepository
   }
 
-  getNotesFromSession (req, res) {
-    const sessionId = req.params.session_id
-    const user = req.params.user
-    const params = {}
-    params['session_id'] = sessionId
-    if (user) {
-      params['user'] = user
-    }
-    this.proxy.getNotes(params, res, dataCallback)
+  getNotesFromSession (sessionId, user) {
+    this.notesRepository.getNotes(sessionId, user)
   }
 
   addNewNoteToSession (req, res) {

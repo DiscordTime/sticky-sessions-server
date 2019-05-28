@@ -8,22 +8,24 @@ app.use(bodyParser.urlencoded({
 
 const config = require('./config')
 const env = require('./src/environment')
+const RepositoriesProvider = require('./src/repositories')
 
 const envPath = './src/environment/'
 const dbFactory = require(envPath + 'DBFactory')
 const db = dbFactory.getDB(config.db)
 
-const Proxy = env.proxy
-const proxy = new Proxy(db)
+const repositories = new RepositoriesProvider(db)
+const notesRepository = repositories.provideNotesRepository()
+const sessionsRepository = repositories.provideSessionsRepository()
 
-const ControllerProvider = env.controllers
-const controllerProvider = new ControllerProvider(proxy)
+const ControllersProvider = env.controllers
+const controllersProvider = new ControllersProvider(notesRepository, sessionsRepository)
 
 const RouterProvider = env.router
-const routerProvider = new RouterProvider(app, controllerProvider)
+const routerProvider = new RouterProvider(app, controllersProvider)
 
 const Server = require('./server')
-const server = new Server(app, config, proxy, routerProvider, controllerProvider, db)
+const server = new Server(app, config, routerProvider)
 
 console.log(config)
 console.log(server)

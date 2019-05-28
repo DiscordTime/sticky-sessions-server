@@ -7,3 +7,13 @@ module.exports.mapSnapshotToArray = function (snapshot, callback) {
   })
   callback(array)
 }
+
+module.exports.mapSnapshotToArrayAsync = async function (snapshot) {
+  var array = []
+  snapshot.forEach(doc => {
+    var data = doc.data()
+    data['id'] = doc.id
+    array.push(data)
+  })
+  return array
+}
