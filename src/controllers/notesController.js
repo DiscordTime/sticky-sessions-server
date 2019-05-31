@@ -42,16 +42,8 @@ class NotesController {
     this.notesRepository.getNotes(sessionId, user)
   }
 
-  addNewNoteToSession (req, res) {
-    const schema = getDefaultJoiNoteSchema()
-    const note = getDefaultNoteFromRequest(req)
-    const { error, value } = Joi.validate(note, schema)
-    if (error) {
-      res.status(400)
-      res.send(error)
-    } else {
-      this.proxy.addNewNoteToSession(value, res, dataCallback)
-    }
+  async addNewNoteToSession (note) {
+    return await this.notesRepository.addNewNoteToSession(note)
   }
 
   deleteNote (req, res) {
