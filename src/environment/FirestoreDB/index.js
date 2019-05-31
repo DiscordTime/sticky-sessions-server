@@ -19,47 +19,54 @@ const tableInfo = {
 }
 
 class FirestoreDB {
-  async executeQuery (query) {
+  async executeQueryDB (query) {
     try {
-      const snapshot = query.get()
+      var snapshot = await query.get()
       const mapper = require('./mapper')
-      const data = await mapper.mapSnapshotToArrayAsync(snapshot)
-      return data
+      var result = await mapper.mapSnapshotToArrayAsync(snapshot)
+      return result
     } catch (err) {
       console.error('Error getting snapshot', err)
       throw err
     }
   }
 
-  async executeGet (table, data) {
+  async executeGetDB (table, data) {
     var query = db.collection(table)
 
     if (data) {
       for (var item in data) {
-        console.log('item', item)
-        console.log('data', data)
-        query = query.where(item, '==', data[item])
+        if (data[item] !== undefined && data[item] !== null) {
+          query = query.where(item, '==', data[item])
+        }
       }
     }
-    return executeQuery(query)
+
+    return this.executeQueryDB(query)
   }
 
   async executeInsert (table, docData) {
     try {
-      console.log('Execute insert')
-      console.log(table)
-      console.log(docData)
       const ref = await db.collection(table).add(docData)
       if (ref.id) {
         docData['id'] = ref.id
-        console.log('Execute insert end', docData)
         return docData
       } else {
-        console.log('Execute insert end error')
         return 'Error adding document. Could not create an unique id'
       }
     } catch (err) {
-      console.log('Execute insert end catch: ', err)
+      return err
+    }
+  }
+
+  async executeDelete (table, docId) {
+    return db.collection(table).doc(docId).delete()
+  }
+
+  async executeUpdateDB (table, docId, docData) {
+    try {
+      return await db.collection(table).doc(docId).update(docData)
+    } catch (err) {
       return err
     }
   }

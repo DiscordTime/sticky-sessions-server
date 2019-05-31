@@ -3,17 +3,20 @@ class NotesRepository {
     this.db = db
   }
 
-  async getNotes (sessionId, user) {
-    var params = {
-      'session_id': sessionId,
-      'user': user
-    }
-
-    return this.db.executeGet('notes', params)
+  async getNotes (note) {
+    return this.db.executeGetDB('notes', note.getNote())
   }
 
   async addNewNoteToSession (note) {
-    return await this.db.executeInsert('notes', note)
+    return this.db.executeInsert('notes', note.getNote())
+  }
+
+  async deleteNote (note) {
+    return this.db.executeDelete('notes', note.id)
+  }
+
+  async editNote (note) {
+    return this.db.executeUpdateDB('notes', note.id, note.getNote())
   }
 }
 

@@ -9,11 +9,11 @@ module.exports.mapSnapshotToArray = function (snapshot, callback) {
 }
 
 module.exports.mapSnapshotToArrayAsync = async function (snapshot) {
-  var array = []
-  snapshot.forEach(doc => {
-    var data = doc.data()
-    data['id'] = doc.id
-    array.push(data)
-  })
-  return array
+  return snapshot.docs.map(
+    doc => {
+      var data = doc.data()
+      data['id'] = doc.id
+      return data
+    }
+  )
 }
