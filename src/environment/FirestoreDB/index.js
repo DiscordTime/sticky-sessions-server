@@ -43,6 +43,26 @@ class FirestoreDB {
     }
     return executeQuery(query)
   }
+
+  async executeInsert (table, docData) {
+    try {
+      console.log('Execute insert')
+      console.log(table)
+      console.log(docData)
+      const ref = await db.collection(table).add(docData)
+      if (ref.id) {
+        docData['id'] = ref.id
+        console.log('Execute insert end', docData)
+        return docData
+      } else {
+        console.log('Execute insert end error')
+        return 'Error adding document. Could not create an unique id'
+      }
+    } catch (err) {
+      console.log('Execute insert end catch: ', err)
+      return err
+    }
+  }
 }
 
 function executeUpdate (table, id, data, callback) {
