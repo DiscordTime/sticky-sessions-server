@@ -1,6 +1,6 @@
 const chai = require('chai')
 const expect = chai.expect
-//const expect = chai.assert
+// const expect = chai.assert
 const describe = require('mocha').describe
 const it = require('mocha').it
 
@@ -13,7 +13,7 @@ const notesMapper = new NotesMapper()
 describe('Notes Router Mapper', function () {
   describe('Validating AddNote Mapper', function () {
     it('Should return a note', () => {
-      expect(() => notesMapper.mapAddNoteToDomain(reqMock.mockAddNoteCorrectReq())).to.not.throw() 
+      expect(() => notesMapper.mapAddNoteToDomain(reqMock.mockAddNoteCorrectReq())).to.not.throw()
     })
 
     it('Should throw an Validation Error', () => {

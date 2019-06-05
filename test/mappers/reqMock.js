@@ -1,22 +1,21 @@
 class ReqMock {
-
-  mockAddNoteCorrectReq() {
+  mockAddNoteCorrectReq () {
     return {
       body: {
-	user: 'userTest',
-	description: 'test note',
-	session_id: 'abcz',
-	topic: 'start'
+        user: 'userTest',
+        description: 'test note',
+        session_id: 'abcz',
+        topic: 'start'
       }
     }
   }
 
-  mockAddNoteNotCorrectReq() {
+  mockAddNoteNotCorrectReq () {
     return {
       body: {
-	user: 'userTest',
-	description: 'test note',
-	topic: 'start'
+        user: 'userTest',
+        description: 'test note',
+        topic: 'start'
       }
     }
   }
