@@ -1,8 +1,9 @@
 const NotesController = require('./notesController')
 
 class ControllersProvider {
-  constructor (notesRepository) {
+  constructor (notesRepository, sessionsRepository) {
     this.notesRepository = notesRepository
+    this.sessionsRepository = sessionsRepository
   }
 
   provideNotesController () {
@@ -10,7 +11,7 @@ class ControllersProvider {
   }
 
   getSessionsController () {
-    return require('./sessionsController')(this.proxy)
+    return require('./sessionsController')(this.sessionsRepository)
   }
 }
 

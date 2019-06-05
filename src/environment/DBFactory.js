@@ -8,7 +8,7 @@ module.exports = {
         break
       case 'firestore':
       default:
-        db = require('./FirestoreDB')
+        db = require('./FirestoreDB/firestoreOld')
         break
     }
     return db

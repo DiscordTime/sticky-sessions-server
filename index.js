@@ -13,8 +13,9 @@ const RepositoriesProvider = require('./src/repositories')
 const envPath = './src/environment/'
 const dbFactory = require(envPath + 'DBFactory')
 const db = dbFactory.getDB(config.db)
+const db2 = dbFactory.getDB('firestore')
 
-const repositories = new RepositoriesProvider(db)
+const repositories = new RepositoriesProvider(db, db2)
 const notesRepository = repositories.provideNotesRepository()
 const sessionsRepository = repositories.provideSessionsRepository()
 

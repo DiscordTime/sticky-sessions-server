@@ -33,10 +33,6 @@ function getDefaultJoiSessionSchema () {
 
 module.exports = function (proxy) {
   class SessionsController {
-    constructor (proxy) {
-      this.proxy = proxy
-    }
-
     getSession (req, res) {
       var sessionId = req.params.session_id
       proxy.getSession(sessionId, res, dataCallback)
