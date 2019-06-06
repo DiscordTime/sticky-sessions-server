@@ -32,3 +32,6 @@ console.log(config)
 console.log(server)
 
 server.start()
+
+// Export the app for testing
+module.exports = app

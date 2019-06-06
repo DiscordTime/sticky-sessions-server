@@ -42,6 +42,7 @@ jobs:
       - run:
           name: Run tests and upload to coveralls
           command: |
+            echo $FIREBASE_DB_STAG | base64 -di > src/environment/FirestoreDB/keys/serviceAccountKey.json
             npm run test-coverage
             npm run test-coveralls
   
