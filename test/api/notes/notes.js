@@ -50,6 +50,20 @@ describe('Notes API', function () {
     })
   })
 
+  describe('/GET notes from sessions using query params', function () {
+    it('Should get notes from session', function () {
+      return chai.request(app)
+        .get('/notes')
+        .query({ session_id: 'test' })
+        .then((res) => {
+          res.should.have.status(200)
+          res.body.should.be.a('array')
+
+          expect(res.body[0].description).to.equal(note.description)
+        })
+    })
+  })
+
   describe('/PUT notes', function () {
     it('Should update a note', function () {
       var newDescription = 'updated note'

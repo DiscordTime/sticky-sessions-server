@@ -25,6 +25,14 @@ class NotesMapper {
     })
   }
 
+  mapGetNotesQueryToDomain (req) {
+    const { error } = Joi.validate(req.query, this.getNotesJoiSchema())
+    if (error) {
+      throw error.details[0].message
+    }
+    return new Note(null, null, null, req.query.user, req.query.session_id)
+  }
+
   mapGetNotesToDomain (req) {
     const { error } = Joi.validate(req.params, this.getNotesJoiSchema())
     if (error) {
