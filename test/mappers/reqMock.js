@@ -19,6 +19,23 @@ class ReqMock {
       }
     }
   }
+
+  mockGetNoteCorrectReq () {
+    return {
+      query: {
+        user: 'userTest',
+        session_id: 'abcz'
+      }
+    }
+  }
+
+  mockGetNoteNotCorrectReq () {
+    return {
+      query: {
+        user: 'userTest'
+      }
+    }
+  }
 }
 
 module.exports = ReqMock

@@ -9,6 +9,26 @@ class NotesRouter {
   }
 
   getRoutes () {
+    this.app.get('/', async (req, res) => {
+      var note
+      try {
+        note = this.noteMapper.mapGetNotesQueryToDomain(req)
+      } catch (error) {
+        res.status(400)
+        res.send({ 'error': error })
+        return
+      }
+      var response = await this.notesController.getNotesFromSession(note)
+
+      if (response.message) {
+        res.status(500)
+        res.send({ 'error': response.message })
+        return
+      }
+
+      res.send(response)
+    })
+
     this.app.get('/:session_id/:user?', async (req, res) => {
       var note
       try {
