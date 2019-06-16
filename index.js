@@ -6,6 +6,12 @@ app.use(bodyParser.urlencoded({
   extended: true
 }))
 
+const admin = require('firebase-admin')
+const ssAccount = require('./src/environment/FirestoreDB/keys/serviceAccountKey.json')
+admin.initializeApp({
+  credential: admin.credential.cert(ssAccount)
+})
+
 const config = require('./config')
 const env = require('./src/environment')
 const RepositoriesProvider = require('./src/repositories')
@@ -22,8 +28,9 @@ const sessionsRepository = repositories.provideSessionsRepository()
 const ControllersProvider = env.controllers
 const controllersProvider = new ControllersProvider(notesRepository, sessionsRepository)
 
+const auth = require('./src/middlewares/auth')
 const RouterProvider = env.router
-const routerProvider = new RouterProvider(app, controllersProvider)
+const routerProvider = new RouterProvider(app, controllersProvider, auth)
 
 const Server = require('./server')
 const server = new Server(app, config, routerProvider)
