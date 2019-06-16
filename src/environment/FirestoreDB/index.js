@@ -1,9 +1,4 @@
 const admin = require('firebase-admin')
-const ssAccount = require('./keys/serviceAccountKey.json')
-admin.initializeApp({
-  credential: admin.credential.cert(ssAccount)
-})
-
 const db = admin.firestore()
 const settings = { timestampsInSnapshots: true }
 db.settings(settings)
