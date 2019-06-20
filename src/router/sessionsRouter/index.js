@@ -1,26 +1,33 @@
 const express = require('express')
-var app = express()
+const SessionMapper = require('./mapper')
+const Router = require('../router')
 
-module.exports = function (sessionsController) {
-  app.get('/:session_id', (req, res) => {
-    sessionsController.getSession(req, res)
-  })
+class SessionRouter {
+  constructor (sessionController) {
+    this.sessionMapper = new SessionMapper()
+    this.app = express()
+    this.sessionController = sessionController
+    this.genericRouter = new Router(this.sessionMapper)
+  }
 
-  app.post('/', (req, res) => {
-    sessionsController.createSession(req, res)
-  })
+  registerRoutes () {
+    this.app.get('/', (req, res) => {
+      this.genericRouter.execute(this.sessionController.getAllSessions, req, res)
+    })
 
-  app.get('/', (req, res) => {
-    sessionsController.getSessions(req, res)
-  })
+    this.app.post('/', (req, res) => {
+      this.genericRouter.execute(this.sessionController.createSession, req, res)
+    })
 
-  app.post('/close/:session_id', (req, res) => {
-    sessionsController.closeSession(req, res)
-  })
+    this.app.put('/', (req, res) => {
+      this.genericRouter.execute(this.sessionController.editSessions, req, res)
+    })
 
-  app.post('/:session_id', (req, res) => {
-    sessionsController.editSession(req, res)
-  })
+    this.app.delete('/', (req, res) => {
+      this.genericRouter.execute(this.sessionController.deleteSession, req, res)
+    })
+  }
 
-  return app
 }
+
+module.exports = SessionRouter

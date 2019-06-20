@@ -16,8 +16,8 @@ class RouterProvider {
     var notesRouter = new NotesRouter(this.controllers.provideNotesController())
     this.app.use(notesFromSessionURL, notesRouter.getRoutes())
 
-    var sessionsRouter = require('./sessionsRouter')(this.controllers.getSessionsController())
-    this.app.use(sessionURL, sessionsRouter)
+    var sessionsRouter = new SessionRouter(this.controllers.getSessionsController())
+    this.app.use(sessionURL, sessionsRouter.getRoutes())
   }
 }
 

@@ -3,30 +3,24 @@ class SessionsRepository {
     this.db = db
   }
 
-  getSession (sessionId, res, callback) {
-    this.db.getSession(sessionId, (err, snapshot) => {
-      callback(err, snapshot, res)
-    })
+  getSession (session) {
+    return this.db.executeGetDB(session.table, session)
   }
 
-  getSessions (callback) {
-    this.db.getSessions(callback)
+  getAllSessions (session) {
+    return this.db.executeGetDB(session.table)
   }
 
-  createSession (topics, res, callback) {
-    this.db.createSession(topics, (err, data) => {
-      callback(err, data, res)
-    })
+  createSession (session) {
+    return this.db.executeInsert(session.table, session)
   }
 
-  closeSession (sessionId, callback) {
-    this.db.closeSession(sessionId, (err) => {
-      callback(err)
-    })
+  deleteSession (session) {
+    return this.db.executeDeleteDB(session.table, session)
   }
 
-  editSession (session, callback) {
-    this.db.editSession(session, callback)
+  editSession (session) {
+    return this.db.executeUpdateDB(session.table, session)
   }
 }
 

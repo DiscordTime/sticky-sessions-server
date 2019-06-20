@@ -1,9 +1,9 @@
 const NotesController = require('./notesController')
 
 class ControllersProvider {
-  constructor (notesRepository, sessionsRepository) {
+  constructor (notesRepository, sessionRepository) {
     this.notesRepository = notesRepository
-    this.sessionsRepository = sessionsRepository
+    this.sessionRepository = sessionRepository
   }
 
   provideNotesController () {
@@ -11,7 +11,7 @@ class ControllersProvider {
   }
 
   getSessionsController () {
-    return require('./sessionsController')(this.sessionsRepository)
+    return new SessionController(this.sessionRepository)
   }
 }
 
