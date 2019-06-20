@@ -26,6 +26,10 @@ describe('Notes Router Mapper', function () {
       expect(() => notesMapper.mapGetNotesQueryToDomain(reqMock.mockGetNoteCorrectReq())).to.not.throw()
     })
 
+    it('Should return a note', () => {
+      expect(() => notesMapper.mapGetNotesQueryToDomain(reqMock.mockGetNoteTypeFilterCorrectReq())).to.not.throw()
+    })
+
     it('Should throw an Validation Error', () => {
       expect(() => notesMapper.mapGetNotesQueryToDomain(reqMock.mockGetNoteNotCorrectReq())).to.throw()
     })

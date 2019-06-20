@@ -11,7 +11,7 @@ class NotesMapper {
       null,
       req.body.topic,
       req.body.description,
-      req.body.user,
+      req.name,
       req.body.session_id
     )
   }
@@ -19,7 +19,6 @@ class NotesMapper {
   bodyFullJoiSchema () {
     return Joi.object().keys({
       description: Joi.string().required().max(100),
-      user: Joi.string().required(),
       session_id: Joi.string().required(),
       topic: Joi.string().required()
     })
@@ -30,21 +29,16 @@ class NotesMapper {
     if (error) {
       throw error.details[0].message
     }
-    return new Note(null, null, null, req.query.user, req.query.session_id)
-  }
-
-  mapGetNotesToDomain (req) {
-    const { error } = Joi.validate(req.params, this.getNotesJoiSchema())
-    if (error) {
-      throw error.details[0].message
+    if (req.query.type === 'all') {
+      return new Note(null, null, null, null, req.query.session_id)
     }
-    return new Note(null, null, null, req.params.user, req.params.session_id)
+    return new Note(null, null, null, req.name, req.query.session_id)
   }
 
   getNotesJoiSchema () {
     return Joi.object().keys({
       session_id: Joi.string().required(),
-      user: Joi.string()
+      type: Joi.string().allow()
     })
   }
 
@@ -77,7 +71,7 @@ class NotesMapper {
       req.params.id,
       req.body.topic,
       req.body.description,
-      req.body.user,
+      req.name,
       req.body.session_id
     )
   }
