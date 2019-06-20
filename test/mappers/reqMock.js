@@ -2,7 +2,6 @@ class ReqMock {
   mockAddNoteCorrectReq () {
     return {
       body: {
-        user: 'userTest',
         description: 'test note',
         session_id: 'abcz',
         topic: 'start'
@@ -13,7 +12,6 @@ class ReqMock {
   mockAddNoteNotCorrectReq () {
     return {
       body: {
-        user: 'userTest',
         description: 'test note',
         topic: 'start'
       }
@@ -23,9 +21,17 @@ class ReqMock {
   mockGetNoteCorrectReq () {
     return {
       query: {
-        user: 'userTest',
         session_id: 'abcz'
       }
+    }
+  }
+
+  mockGetNoteTypeFilterCorrectReq () {
+    return {
+      query: {
+        session_id: 'abcz'
+      },
+      name: 'Tester'
     }
   }
 

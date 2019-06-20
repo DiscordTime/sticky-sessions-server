@@ -15,7 +15,7 @@ describe('Notes Repository', function () {
     it('Should get notes from session', async () => {
       var note = new Note()
       note.sessionId = 1
-      const notes = await notesRepository.getNotes(note)
+      const notes = await notesRepository.getNotes(note.getNote())
       expect(notes).deep.equal([1, 2, 3])
     })
   })

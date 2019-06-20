@@ -16,6 +16,7 @@ chai.should()
 const auth = require('../../../src/middlewares/auth')
 sinon.stub(auth, 'verifyToken')
   .callsFake(function (req, res, next) {
+    req.name = 'Tester'
     return next()
   })
 
@@ -26,7 +27,6 @@ var noteId
 let note = {
   'topic': 'test',
   'description': 'API Testing',
-  'user': 'Tester',
   'session_id': 'test'
 }
 
@@ -43,19 +43,6 @@ describe('Notes API', function () {
           expect(res.body.topic).to.equal(note.topic)
 
           noteId = res.body.id
-        })
-    })
-  })
-
-  describe('/GET notes from sessions', function () {
-    it('Should get notes from session', function () {
-      return chai.request(app)
-        .get('/notes/test')
-        .then((res) => {
-          res.should.have.status(200)
-          res.body.should.be.a('array')
-
-          expect(res.body[0].description).to.equal(note.description)
         })
     })
   })
