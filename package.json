@@ -6,6 +6,7 @@
   "scripts": {
     "start": "./node_modules/eslint/bin/eslint.js . && node index.js",
     "lint": "./node_modules/eslint/bin/eslint.js .",
+    "lint-fix": "./node_modules/eslint/bin/eslint.js . --fix",
     "test": "mocha --recursive --exit --timeout 30000",
     "test-coverage": "nyc --all true npm run test",
     "test-coveralls": "nyc report --reporter=text-lcov | coveralls"

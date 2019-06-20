@@ -1,19 +1,19 @@
-module.exports.mapSnapshotToArray = function (snapshot, callback) {
-  var array = []
-  snapshot.forEach(doc => {
+function mapDocumentToData (doc) {
+  if (doc.exists) {
     var data = doc.data()
     data['id'] = doc.id
-    array.push(data)
-  })
-  callback(array)
+    return data
+  }
+  return {}
 }
 
-module.exports.mapSnapshotToArrayAsync = async function (snapshot) {
+module.exports.mapSnapshotToArray = function (snapshot) {
+  if (!snapshot.docs) {
+    return mapDocumentToData(snapshot)
+  }
   return snapshot.docs.map(
     doc => {
-      var data = doc.data()
-      data['id'] = doc.id
-      return data
+      return mapDocumentToData(doc)
     }
   )
 }

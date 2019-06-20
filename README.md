@@ -69,14 +69,11 @@ We need to send the following information in a `JSON` format
   "timestamp": "<timestamp you want your session to happen>"
 }
 ```
-
-
-#### **Close Session**
-To close a `Session`, we do a `POST` to the following:
+#### **Delete Session**
+To delete a `Session`, we do a `DELETE` to the following:
 ```
-/sessions/close/:id
+/sessions/:session_id
 ```
-Where `id` is the `id` of the `session` which you want to close.
 
 #### **Add Note**
 To add a new `Note` to a `Session`, we do a `POST` to the following:
