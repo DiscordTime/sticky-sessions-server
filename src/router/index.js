@@ -1,7 +1,9 @@
 const notesFromSessionURL = '/notes/'
 const sessionURL = '/sessions/'
-const NotesRouter = require('./notesRouter')
+const boardURL = '/boards/'
+const NoteRouter = require('./noteRouter')
 const SessionRouter = require('./sessionRouter')
+const BoardRouter = require('./boardRouter')
 
 class RouterProvider {
   constructor (app, controllers, auth) {
@@ -14,11 +16,14 @@ class RouterProvider {
     // Use middleware verifytoken function in before every route
     this.app.use(this.auth.verifyToken)
 
-    var notesRouter = new NotesRouter(this.controllers.provideNotesController())
-    this.app.use(notesFromSessionURL, notesRouter.getRoutes())
+    var noteRouter = new NoteRouter(this.controllers.provideNoteController())
+    this.app.use(notesFromSessionURL, noteRouter.getRoutes())
 
-    var sessionRouter = new SessionRouter(this.controllers.getSessionsController())
-    this.app.use(sessionURL, sessionRouter.getRoutes())
+    var sessionsRouter = new SessionRouter(this.controllers.provideSessionController())
+    this.app.use(sessionURL, sessionsRouter.getRoutes())
+
+    var boardRouter = new BoardRouter(this.controllers.provideBoardController())
+    this.app.use(boardURL, boardRouter.getRoutes())
   }
 }
 

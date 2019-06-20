@@ -1,4 +1,4 @@
-class NotesRepository {
+class NoteRepository {
   constructor (db) {
     this.db = db
   }
@@ -20,4 +20,4 @@ class NotesRepository {
   }
 }
 
-module.exports = NotesRepository
+module.exports = NoteRepository
