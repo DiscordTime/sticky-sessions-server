@@ -2,7 +2,6 @@
 const chai = require('chai')
 const chaiHttp = require('chai-http')
 const mocha = require('mocha')
-const sinon = require('sinon')
 
 const describe = mocha.describe
 const it = mocha.it
@@ -12,13 +11,8 @@ const expect = chai.expect
 chai.use(chaiHttp)
 chai.should()
 
-// Mock firebase token verification
-const auth = require('../../../src/middlewares/auth')
-sinon.stub(auth, 'verifyToken')
-  .callsFake(function (req, res, next) {
-    req.name = 'Tester'
-    return next()
-  })
+const authStub = require('../auth')
+authStub.getAuthStub()
 
 // Require app after mocking firebase token verification
 const app = require('../../../index')

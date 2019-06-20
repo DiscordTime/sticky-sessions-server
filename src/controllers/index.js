@@ -1,17 +1,18 @@
-const NotesController = require('./notesController')
+const NoteController = require('./noteController')
+const SessionController = require('./sessionController')
 
 class ControllersProvider {
-  constructor (notesRepository, sessionsRepository) {
-    this.notesRepository = notesRepository
-    this.sessionsRepository = sessionsRepository
+  constructor (noteRepository, sessionRepository) {
+    this.noteRepository = noteRepository
+    this.sessionRepository = sessionRepository
   }
 
   provideNotesController () {
-    return new NotesController(this.notesRepository)
+    return new NoteController(this.noteRepository)
   }
 
   getSessionsController () {
-    return require('./sessionsController')(this.sessionsRepository)
+    return new SessionController(this.sessionRepository)
   }
 }
 

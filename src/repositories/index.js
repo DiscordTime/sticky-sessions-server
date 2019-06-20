@@ -1,18 +1,17 @@
-const NotesRepository = require('./notesRepository')
-const SessionsRepository = require('./sessionsRepository')
+const NoteRepository = require('./noteRepository')
+const SessionRepository = require('./sessionRepository')
 
 class RepositoriesProvider {
-  constructor (db, db2) {
+  constructor (db) {
     this.db = db
-    this.db2 = db2
   }
 
   provideNotesRepository () {
-    return new NotesRepository(this.db)
+    return new NoteRepository(this.db)
   }
 
   provideSessionsRepository () {
-    return new SessionsRepository(this.db2)
+    return new SessionRepository(this.db)
   }
 }
 
