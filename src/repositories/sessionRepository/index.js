@@ -1,4 +1,4 @@
-class SessionsRepository {
+class SessionRepository {
   constructor (db) {
     this.db = db
     this.table = 'sessions'
@@ -27,4 +27,4 @@ class SessionsRepository {
   }
 }
 
-module.exports = SessionsRepository
+module.exports = SessionRepository

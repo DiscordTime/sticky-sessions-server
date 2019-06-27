@@ -1,7 +1,7 @@
 const Note = require('../../model/note')
 const Joi = require('joi')
 
-class NotesMapper {
+class NoteMapper {
   mapAddNoteToDomain (req) {
     const { error } = Joi.validate(req.body, this.bodyFullJoiSchema())
     if (error) {
@@ -77,4 +77,4 @@ class NotesMapper {
   }
 }
 
-module.exports = NotesMapper
+module.exports = NoteMapper

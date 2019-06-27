@@ -7,31 +7,31 @@ const it = require('mocha').it
 const ReqMock = require('./reqMock')
 const reqMock = new ReqMock()
 
-const NotesMapper = require('./../../src/router/notesRouter/mapper')
-const notesMapper = new NotesMapper()
+const NoteMapper = require('./../../src/router/noteRouter/mapper')
+const noteMapper = new NoteMapper()
 
 describe('Notes Router Mapper', function () {
   describe('Validating AddNote Mapper', function () {
     it('Should return a note', () => {
-      expect(() => notesMapper.mapAddNoteToDomain(reqMock.mockAddNoteCorrectReq())).to.not.throw()
+      expect(() => noteMapper.mapAddNoteToDomain(reqMock.mockAddNoteCorrectReq())).to.not.throw()
     })
 
     it('Should throw an Validation Error', () => {
-      expect(() => notesMapper.mapAddNoteToDomain(reqMock.mockAddNoteNotCorrectReq())).to.throw()
+      expect(() => noteMapper.mapAddNoteToDomain(reqMock.mockAddNoteNotCorrectReq())).to.throw()
     })
   })
 
   describe('Validating GetNote Mapper', function () {
     it('Should return a note', () => {
-      expect(() => notesMapper.mapGetNotesQueryToDomain(reqMock.mockGetNoteCorrectReq())).to.not.throw()
+      expect(() => noteMapper.mapGetNotesQueryToDomain(reqMock.mockGetNoteCorrectReq())).to.not.throw()
     })
 
     it('Should return a note', () => {
-      expect(() => notesMapper.mapGetNotesQueryToDomain(reqMock.mockGetNoteTypeFilterCorrectReq())).to.not.throw()
+      expect(() => noteMapper.mapGetNotesQueryToDomain(reqMock.mockGetNoteTypeFilterCorrectReq())).to.not.throw()
     })
 
     it('Should throw an Validation Error', () => {
-      expect(() => notesMapper.mapGetNotesQueryToDomain(reqMock.mockGetNoteNotCorrectReq())).to.throw()
+      expect(() => noteMapper.mapGetNotesQueryToDomain(reqMock.mockGetNoteNotCorrectReq())).to.throw()
     })
   })
 })

@@ -1,7 +1,7 @@
 const express = require('express')
 const NoteMapper = require('./mapper')
 
-class NotesRouter {
+class NoteRouter {
   constructor (notesController) {
     this.notesController = notesController
     this.app = express()
@@ -95,4 +95,4 @@ class NotesRouter {
   }
 }
 
-module.exports = NotesRouter
+module.exports = NoteRouter
