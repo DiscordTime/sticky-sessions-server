@@ -1,5 +1,6 @@
 const NoteRepository = require('./noteRepository')
 const SessionRepository = require('./sessionRepository')
+const TeamRepository= require('./teamRepository')
 
 class RepositoriesProvider {
   constructor (db) {
@@ -12,6 +13,10 @@ class RepositoriesProvider {
 
   provideSessionsRepository () {
     return new SessionRepository(this.db)
+  }
+
+  provideTeamsRepository() {
+    return new TeamRepository(this.db)
   }
 }
 
