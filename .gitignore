@@ -8,3 +8,5 @@ src/environment/FirestoreDB/keys/serviceAccountKey.json
 .nyc_output
 
 .DS_Store
+
+.idea

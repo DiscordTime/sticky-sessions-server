@@ -1,7 +1,10 @@
 const notesFromSessionURL = '/notes/'
 const sessionURL = '/sessions/'
+const meetingURL = '/meetings/'
+
 const NotesRouter = require('./notesRouter')
 const SessionRouter = require('./sessionRouter')
+const MeetingRouter = require('./meetingsRouter')
 
 class RouterProvider {
   constructor (app, controllers, auth) {
@@ -19,6 +22,9 @@ class RouterProvider {
 
     var sessionRouter = new SessionRouter(this.controllers.getSessionsController())
     this.app.use(sessionURL, sessionRouter.getRoutes())
+
+    var meetingRouter = new MeetingRouter(this.controllers.provideMeetingsController())
+    this.app.use(meetingURL, meetingRouter.getRoutes())
   }
 }
 

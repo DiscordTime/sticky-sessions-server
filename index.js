@@ -23,9 +23,14 @@ const db = dbFactory.getDB(config.db)
 const repositories = new RepositoriesProvider(db)
 const notesRepository = repositories.provideNotesRepository()
 const sessionsRepository = repositories.provideSessionsRepository()
+const meetingsRepository = repositories.provideMeetingsRepository()
+
+const ServicesProvider = require('./src/services')
+const services = new ServicesProvider(meetingsRepository, sessionsRepository)
+const meetingService = services.provideMeetingsService()
 
 const ControllersProvider = env.controllers
-const controllersProvider = new ControllersProvider(notesRepository, sessionsRepository)
+const controllersProvider = new ControllersProvider(notesRepository, sessionsRepository, meetingService)
 
 const auth = require('./src/middlewares/auth')
 const RouterProvider = env.router
