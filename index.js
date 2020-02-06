@@ -26,8 +26,8 @@ const sessionsRepository = repositories.provideSessionsRepository()
 const teamsRepository = repositories.provideTeamsRepository()
 
 const ControllersProvider = env.controllers
-const controllersProvider = new ControllersProvider(notesRepository, sessionsRepository, 
-                                                    teamsRepository)
+const controllersProvider = new ControllersProvider(notesRepository, sessionsRepository,
+  teamsRepository)
 
 const auth = require('./src/middlewares/auth')
 const RouterProvider = env.router
