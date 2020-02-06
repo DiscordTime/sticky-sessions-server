@@ -17,7 +17,7 @@ class FirestoreDB {
   }
 
   async executeGetDB (table, data) {
-    console.log('Going to GET  on ', table)
+    console.log('Going to GET', data, 'on ', table)
     var query = db.collection(table)
 
     if (data) {

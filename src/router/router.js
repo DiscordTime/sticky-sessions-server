@@ -16,6 +16,7 @@ class Router {
         res.send(response)
       }
     } catch (error) {
+      console.log(error)
       res.status(400)
       res.send({ 'error': error })
     }
