@@ -1,4 +1,3 @@
-
 const sinon = require('sinon')
 const auth = require('../../../src/middlewares/auth')
 

@@ -23,7 +23,7 @@ class FirestoreDB {
     if (data) {
       console.log('filtering')
       for (var field in data) {
-        if (data[field] !== undefined && data[field] !== null) {
+        if (data[field] !== undefined && data[field] !== null && !Array.isArray(data[field])) {
           if (field === 'id') {
             query = query.doc(data[field])
           } else {
@@ -66,6 +66,19 @@ class FirestoreDB {
     } catch (err) {
       return err
     }
+  }
+
+  getDocument (url) {
+    return db.doc(url)
+  }
+
+  async executeTransaction (table, callback) {
+    return db.runTransaction(t => {
+      let collectionRef = db.collection(table)
+      return Promise.resolve(callback(collectionRef, t))
+    }).catch(err => {
+      return { message: err }
+    })
   }
 }
 

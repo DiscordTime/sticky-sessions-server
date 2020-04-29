@@ -17,7 +17,7 @@ class Router {
       }
     } catch (error) {
       res.status(400)
-      res.send({ 'error': error })
+      res.send({ 'error': error.message })
     }
   }
 }
