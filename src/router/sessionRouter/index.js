@@ -12,27 +12,27 @@ class SessionRouter {
 
   getRoutes () {
     this.app.get('/', (req, res) => {
-      this.genericRouter.execute(this.sessionController.getAllSessions
+      this.genericRouter.executeOld(this.sessionController.getAllSessions
         .bind(this.sessionController), req, res)
     })
 
     this.app.get('/:id', (req, res) => {
-      this.genericRouter.execute(this.sessionController.getSession
+      this.genericRouter.executeOld(this.sessionController.getSession
         .bind(this.sessionController), req, res)
     })
 
     this.app.post('/', (req, res) => {
-      this.genericRouter.execute(this.sessionController.createSession
+      this.genericRouter.executeOld(this.sessionController.createSession
         .bind(this.sessionController), req, res)
     })
 
     this.app.put('/:id', (req, res) => {
-      this.genericRouter.execute(this.sessionController.editSession
+      this.genericRouter.executeOld(this.sessionController.editSession
         .bind(this.sessionController), req, res)
     })
 
     this.app.delete('/:id', (req, res) => {
-      this.genericRouter.execute(this.sessionController.deleteSession
+      this.genericRouter.executeOld(this.sessionController.deleteSession
         .bind(this.sessionController), req, res)
     })
 
