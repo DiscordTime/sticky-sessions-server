@@ -3,11 +3,11 @@ class Router {
     this.mapper = mapper
   }
 
-  async execute (controllerFunction, req, res) {
-    var model = this.mapper.mapToDomain(req)
-    var response
+  // Deprecate this in favor of version with model mapper function
+  async executeOld (controllerFunction, req, res) {
     try {
-      response = await controllerFunction(model)
+      let model = this.mapper.mapToDomain(req)
+      let response = await controllerFunction(model)
       if (response.message) {
         console.log('status==500')
         res.status(500)
@@ -16,6 +16,26 @@ class Router {
         res.send(response)
       }
     } catch (error) {
+      console.log(error)
+      res.status(400)
+      res.send({ 'error': error })
+    }
+  }
+
+  async execute (controllerFunction, mapperFunction, req, res) {
+    try {
+      let model = await mapperFunction(req)
+      let response = await controllerFunction(model)
+      if (response.message) {
+        console.log('status==500')
+        console.log(response)
+        res.status(500)
+        res.send({ 'error': response.message })
+      } else {
+        res.send(response)
+      }
+    } catch (error) {
+      console.log(error)
       res.status(400)
       res.send({ 'error': error })
     }
