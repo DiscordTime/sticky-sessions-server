@@ -1,9 +1,11 @@
 const notesFromSessionURL = '/notes/'
 const sessionURL = '/sessions/'
 const teamURL = '/teams/'
+const meetURL = '/meets/'
 const NotesRouter = require('./notesRouter')
 const SessionRouter = require('./sessionRouter')
 const TeamRouter = require('./teamRouter/teamRouter')
+const MeetRouter = require('./meetRouter/meetRouter')
 
 class RouterProvider {
   constructor (app, controllers, auth) {
@@ -24,6 +26,9 @@ class RouterProvider {
 
     var teamRouter = new TeamRouter(this.controllers.getTeamsController())
     this.app.use(teamURL, teamRouter.getRoutes())
+
+    var meetRouter = new MeetRouter(this.controllers.getMeetsController())
+    this.app.use(meetURL, meetRouter.getRoutes())
   }
 }
 

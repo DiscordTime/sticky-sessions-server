@@ -5,8 +5,8 @@ class SessionController {
     this.sessionRepository = sessionRepository
   }
 
-  async getAllSessions (meeting) {
-    return this.sessionRepository.getAllSessions(meeting)
+  async getAllSessions (meetingId) {
+    return this.sessionRepository.getAllSessions(meetingId)
   }
 
   async getSession (session) {

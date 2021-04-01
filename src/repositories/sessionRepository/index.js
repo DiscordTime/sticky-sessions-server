@@ -8,12 +8,6 @@ class SessionsRepository {
     return this.db.executeGetDB(this.table, session)
   }
 
-  // todo : getAllSession of a meeting
-  // eslint-disable-next-line no-use-before-define
-  async getAllSessions (meeting) {
-    return this.db.executeGetDB(this.table)
-  }
-
   async createSession (session) {
     return this.db.executeInsert(this.table, session)
   }

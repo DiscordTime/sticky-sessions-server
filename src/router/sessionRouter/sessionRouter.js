@@ -1,5 +1,5 @@
 const express = require('express')
-const SessionMapper = require('./mapper')
+const SessionMapper = require('./sessionMapper')
 const Router = require('../router')
 
 class SessionRouter {
@@ -11,8 +11,8 @@ class SessionRouter {
   }
 
   getRoutes () {
-    this.app.get('/', (req, res) => {
-      this.genericRouter.executeOld(this.sessionController.getAllSessions
+    this.app.get('/:meetId', (req, res) => {
+      this.genericRouter.executeOld(this.sessionController.getSession
         .bind(this.sessionController), req, res)
     })
 

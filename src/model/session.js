@@ -1,8 +1,9 @@
 class Session {
-  constructor (id, topics, timestamp) {
+  constructor (id, topics, timestamp, meetId) {
     this.id = id
     this.topics = topics
     this.timestamp = timestamp
+    this.meetId = this.meetId
   }
 
   getSession () {
@@ -19,6 +20,15 @@ class Session {
   getIdObject () {
     return {
       id: this.id
+    }
+  }
+
+  getFilter () {
+    return {
+      id: 'EQUALS',
+      meetId: 'EQUALS',
+      topics: 'CONTAINS',
+      timestamp: 'EQUALS'
     }
   }
 }
