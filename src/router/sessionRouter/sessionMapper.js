@@ -8,66 +8,57 @@ class SessionMapper {
   }
 
   mapGetSessions (req) {
-    var map = this.genericMapper.map(this.validateMeetId.bind(this), req.query)
-    var model = new Session(null, null, null, map.meetId)
-    return model
+    const map = this.genericMapper.map(this.validateMeetId.bind(this), req.query)
+    return new Session(null, null, null, map.meetId)
   }
 
   mapGetSession (req) {
-    var map = this.genericMapper.map(this.validateId.bind(this), req.params)
-    var model = new Session(map.id, null, null, null)
-    return model
+    const map = this.genericMapper.map(this.validateId.bind(this), req.params)
+    return new Session(map.id, null, null, null)
   }
 
   mapCreateSession (req) {
-    var map = this.genericMapper.map(this.validateSession.bind(this), req.body)
-    var model = new Session(null, map.topics, map.timestamp, map.meetId)
-    return model
+    const map = this.genericMapper.map(this.validateSession.bind(this), req.body)
+    return new Session(null, map.topics, map.timestamp, map.meetId)
   }
 
   mapEditSession (req) {
-    let newSession = { ...req.params, ...req.body }
-    var map = this.genericMapper.map(this.validateSessionWithId.bind(this), newSession)
-    var model = new Session(map.id, map.topics, map.timestamp, map.meetId)
-    return model
+    const newSession = { ...req.params, ...req.body }
+    const map = this.genericMapper.map(this.validateSessionWithId.bind(this), newSession)
+    return new Session(map.id, map.topics, map.timestamp, map.meetId)
   }
 
   mapDeleteSession (req) {
-    var map = this.genericMapper.map(this.validateId.bind(this), req.params)
-    var model = new Session(map.id, null, null, null)
-    return model
+    const map = this.genericMapper.map(this.validateId.bind(this), req.params)
+    return new Session(map.id, null, null, null)
   }
 
   validateMeetId (session) {
-    return Joi.validate(session, Joi.object({
+    return Joi.object({
       meetId: Joi.string().required()
-    }).required())
+    }).required().validate(session)
   }
 
   validateId (session) {
-    return Joi.validate(session, Joi.object({
+    return Joi.object({
       id: Joi.string().required()
-    }).required())
+    }).required().validate(session)
   }
 
   validateSessionWithId (session) {
-    var model = Joi.validate(session, Joi.object({
+    return Joi.object({
       id: Joi.string().required(),
       topics: Joi.array().required(),
       timestamp: Joi.string().required()
-    }))
-
-    return model
+    }).validate(session)
   }
 
   validateSession (session) {
-    var model = Joi.validate(session, Joi.object({
+    return Joi.object({
       topics: Joi.array().required(),
       timestamp: Joi.string().required(),
       meetId: Joi.string().required()
-    }))
-
-    return model
+    }).validate(session)
   }
 }
 

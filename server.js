@@ -11,8 +11,8 @@ class Server {
   }
 
   startListening () {
-    var port = this.config.port
-    this.app.listen(process.env.PORT || port, (req, res) => {
+    const port = this.config.port
+    this.app.listen(process.env.PORT || port, () => {
       console.log('listening to port ' + port)
     })
   }

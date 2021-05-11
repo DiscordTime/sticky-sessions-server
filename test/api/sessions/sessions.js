@@ -17,15 +17,15 @@ authStub.getAuthStub()
 // Require app after mocking firebase token verification
 const app = require('../../../index')
 
-var sessionId
-let meeting = {
-  'meetId': '1'
+let sessionId
+const meeting = {
+  meetId: '1'
 }
 
 let session = {
-  'topics': ['topic1', 'topic2'],
-  'timestamp': '2381789312',
-  'meetId': meeting.meetId
+  topics: ['topic1', 'topic2'],
+  timestamp: '2381789312',
+  meetId: meeting.meetId
 }
 
 describe('Session API', function () {
@@ -75,8 +75,7 @@ describe('Session API', function () {
 
   describe('/PUT session', function () {
     it('Should update a session', function () {
-      var newTopics = ['newTopic', 'topic2']
-      session.topics = newTopics
+      session.topics = ['newTopic', 'topic2']
       return chai.request(app)
         .put('/sessions/' + sessionId)
         .send(session)

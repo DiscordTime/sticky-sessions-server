@@ -13,7 +13,7 @@ const Note = require('./../../src/model/note')
 describe('Notes Repository', function () {
   describe('getNotesFromSession() function', function () {
     it('Should get notes from session', async () => {
-      var note = new Note()
+      const note = new Note()
       note.sessionId = 1
       const notes = await notesRepository.getNotes(note.getNote())
       expect(notes).deep.equal([1, 2, 3])
