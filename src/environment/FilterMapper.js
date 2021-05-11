@@ -1,5 +1,5 @@
 class FilterMapper {
-  toFirestore (key) {
+  static toFirestore (key) {
     if (key === 'EQUALS') {
       return '=='
     }

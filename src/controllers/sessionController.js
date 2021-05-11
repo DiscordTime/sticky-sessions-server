@@ -28,23 +28,23 @@ class SessionController {
   }
 
   validateSessionId (session) {
-    Joi.validate(session, Joi.object({
+    Joi.object({
       id: Joi.string().required()
-    }))
+    }).validate(session)
   }
 
   validateFullSession (session) {
-    Joi.validate(session, Joi.object({
+    Joi.object({
       id: Joi.string().required(),
       topics: Joi.array().items(Joi.string()).required(),
       timestamp: Joi.date().timestamp().required()
-    }))
+    }).validate(session)
   }
 
   validateSession (session) {
-    Joi.validate(session, Joi.object({
+    Joi.object({
       topics: Joi.array().items(Joi.string()).required()
-    }))
+    }).validate(session)
   }
 }
 module.exports = SessionController

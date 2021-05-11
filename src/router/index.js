@@ -18,16 +18,16 @@ class RouterProvider {
     // Use middleware verifytoken function in before every route
     this.app.use(this.auth.verifyToken)
 
-    var notesRouter = new NotesRouter(this.controllers.getNotesController())
+    const notesRouter = new NotesRouter(this.controllers.getNotesController())
     this.app.use(notesFromSessionURL, notesRouter.getRoutes())
 
-    var sessionRouter = new SessionRouter(this.controllers.getSessionsController())
+    const sessionRouter = new SessionRouter(this.controllers.getSessionsController())
     this.app.use(sessionURL, sessionRouter.getRoutes())
 
-    var teamRouter = new TeamRouter(this.controllers.getTeamsController())
+    const teamRouter = new TeamRouter(this.controllers.getTeamsController())
     this.app.use(teamURL, teamRouter.getRoutes())
 
-    var meetRouter = new MeetRouter(this.controllers.getMeetsController())
+    const meetRouter = new MeetRouter(this.controllers.getMeetsController())
     this.app.use(meetURL, meetRouter.getRoutes())
   }
 }

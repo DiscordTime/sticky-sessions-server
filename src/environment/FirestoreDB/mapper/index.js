@@ -1,7 +1,7 @@
 function mapDocumentToData (doc) {
   if (doc.exists) {
-    var data = doc.data()
-    data['id'] = doc.id
+    const data = doc.data()
+    data.id = doc.id
     return data
   }
   return {}

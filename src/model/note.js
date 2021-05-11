@@ -22,7 +22,7 @@ class Note {
       topic: 'EQUALS',
       description: 'EQUALS',
       user: 'EQUALS',
-      sessionId: 'EQUALS',
+      sessionId: 'EQUALS'
     }
   }
 }

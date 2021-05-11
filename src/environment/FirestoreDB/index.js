@@ -7,10 +7,9 @@ db.settings(settings)
 class FirestoreDB {
   async executeQueryDB (query) {
     try {
-      var snapshot = await query.get()
+      const snapshot = await query.get()
       const mapper = require('./mapper')
-      var result = mapper.mapSnapshotToArray(snapshot)
-      return result
+      return mapper.mapSnapshotToArray(snapshot)
     } catch (err) {
       console.error('Error getting snapshot', err)
       throw err
@@ -19,12 +18,13 @@ class FirestoreDB {
 
   async executeGetDB (table, data) {
     console.log('Going to GET', data, 'on ', table)
-    var query = db.collection(table)
+    let query = db.collection(table)
 
     if (data) {
-      console.log('filtering')
-      var filter = data.getFilter()
-      for (var field in data) {
+      console.log('Filtering ' + JSON.stringify(data))
+      const filter = data.getFilter()
+      Object.keys(data).forEach(field => {
+        // TODO Why data[field] works and data.field doesn't?
         if (data[field] !== undefined && data[field] !== null) {
           if (field === 'id') {
             query = query.doc(data[field])
@@ -36,7 +36,7 @@ class FirestoreDB {
             }
           }
         }
-      }
+      })
     }
 
     return this.executeQueryDB(query)
@@ -48,7 +48,7 @@ class FirestoreDB {
       const ref = await db.collection(table).add(docData)
       console.log('inserted.')
       if (ref.id) {
-        docData['id'] = ref.id
+        docData.id = ref.id
         console.log('returning. docData = ', docData)
         return docData
       } else {
@@ -65,8 +65,7 @@ class FirestoreDB {
   }
 
   async executeUpdateDB (table, docId, docData) {
-    console.log('Going to update: id = ', docId, 'with this data ', docData,
-      ' on ', table)
+    console.log('Going to update: id = ', docId, 'with this data ', docData, ' on ', table)
     try {
       return await db.collection(table).doc(docId).update(docData)
     } catch (err) {
