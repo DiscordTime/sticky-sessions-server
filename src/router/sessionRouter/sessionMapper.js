@@ -8,7 +8,9 @@ class SessionMapper {
   }
 
   mapGetSessions (req) {
-    return this.genericMapper.map(this.validateMeetId.bind(this), req.params)
+    var map = this.genericMapper.map(this.validateMeetId.bind(this), req.params)
+    var model = new Session(map.meetId, null, null, null)
+    return model
   }
 
   mapGetSession (req) {

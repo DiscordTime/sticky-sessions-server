@@ -3,7 +3,7 @@ const sessionURL = '/sessions/'
 const teamURL = '/teams/'
 const meetURL = '/meets/'
 const NotesRouter = require('./notesRouter')
-const SessionRouter = require('./sessionRouter')
+const SessionRouter = require('./sessionRouter/sessionRouter')
 const TeamRouter = require('./teamRouter/teamRouter')
 const MeetRouter = require('./meetRouter/meetRouter')
 

@@ -11,9 +11,16 @@ class SessionRouter {
   }
 
   getRoutes () {
+    // this.app.get('/:meetId', (req, res) => {
+    //   this.genericRouter.executeOld(this.sessionController.getSession
+    //     .bind(this.sessionController), req, res)
+    // })
+
     this.app.get('/:meetId', (req, res) => {
-      this.genericRouter.executeOld(this.sessionController.getSession
-        .bind(this.sessionController), req, res)
+      this.genericRouter.execute(
+        this.sessionController.getAllSessions.bind(this.sessionController),
+        this.sessionMapper.mapGetSessions.bind(this.sessionMapper),
+        req, res)
     })
 
     this.app.get('/:id', (req, res) => {

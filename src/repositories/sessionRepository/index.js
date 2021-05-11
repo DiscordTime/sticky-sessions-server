@@ -4,6 +4,10 @@ class SessionsRepository {
     this.table = 'sessions'
   }
 
+  async getAllSessions (meetingId) {
+    return this.db.executeGetDB(this.table, meetingId)
+  }
+
   async getSession (session) {
     return this.db.executeGetDB(this.table, session)
   }
