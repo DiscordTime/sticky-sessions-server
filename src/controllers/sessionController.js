@@ -10,12 +10,10 @@ class SessionController {
   }
 
   async getSession (session) {
-    this.validateSessionId(session)
-    return this.sessionRepository.getSession(session.getIdObject())
+    return this.sessionRepository.getSession(session)
   }
 
   async createSession (session) {
-    this.validateSession(session)
     return this.sessionRepository.createSession(session.getSession())
   }
 

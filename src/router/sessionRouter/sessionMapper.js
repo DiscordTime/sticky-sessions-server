@@ -8,8 +8,8 @@ class SessionMapper {
   }
 
   mapGetSessions (req) {
-    var map = this.genericMapper.map(this.validateMeetId.bind(this), req.params)
-    var model = new Session(map.meetId, null, null, null)
+    var map = this.genericMapper.map(this.validateMeetId.bind(this), req.query)
+    var model = new Session(null, null, null, map.meetId)
     return model
   }
 
@@ -53,9 +53,8 @@ class SessionMapper {
   validateSessionWithId (session) {
     var model = Joi.validate(session, Joi.object({
       id: Joi.string().required(),
-      topics: Joi.string().required(),
+      topics: Joi.array().required(),
       timestamp: Joi.string().required(),
-      meetId: Joi.string().required()
     }))
 
     return model
@@ -63,7 +62,7 @@ class SessionMapper {
 
   validateSession (session) {
     var model = Joi.validate(session, Joi.object({
-      topics: Joi.string().required(),
+      topics: Joi.array().required(),
       timestamp: Joi.string().required(),
       meetId: Joi.string().required()
     }))
