@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-var bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
@@ -24,10 +24,11 @@ const repositories = new RepositoriesProvider(db)
 const notesRepository = repositories.provideNotesRepository()
 const sessionsRepository = repositories.provideSessionsRepository()
 const teamsRepository = repositories.provideTeamsRepository()
+const meetsRepository = repositories.provideMeetsRepository()
 
 const ControllersProvider = env.controllers
 const controllersProvider = new ControllersProvider(notesRepository, sessionsRepository,
-  teamsRepository)
+  teamsRepository, meetsRepository)
 
 const auth = require('./src/middlewares/auth')
 const RouterProvider = env.router

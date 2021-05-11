@@ -10,19 +10,19 @@ class NotesRouter {
 
   getRoutes () {
     this.app.get('/', async (req, res) => {
-      var note
+      let note
       try {
         note = this.noteMapper.mapGetNotesQueryToDomain(req)
       } catch (error) {
         res.status(400)
-        res.send({ 'error': error })
+        res.send({ error: error })
         return
       }
-      var response = await this.notesController.getNotesFromSession(note)
+      const response = await this.notesController.getNotesFromSession(note)
 
       if (response.message) {
         res.status(500)
-        res.send({ 'error': response.message })
+        res.send({ error: response.message })
         return
       }
 
@@ -30,19 +30,19 @@ class NotesRouter {
     })
 
     this.app.post('/', async (req, res) => {
-      var note
+      let note
       try {
         note = this.noteMapper.mapAddNoteToDomain(req)
       } catch (error) {
         res.status(400)
-        res.send({ 'error': error })
+        res.send({ error: error })
         return
       }
 
       const response = await this.notesController.addNewNoteToSession(note)
       if (response.message) {
         res.status(500)
-        res.send({ 'error': response.message })
+        res.send({ error: response.message })
         return
       }
 
@@ -50,12 +50,12 @@ class NotesRouter {
     })
 
     this.app.delete('/:id', async (req, res) => {
-      var note
+      let note
       try {
         note = this.noteMapper.deleteNoteToDomain(req)
       } catch (error) {
         res.status(400)
-        res.send({ 'error': error })
+        res.send({ error: error })
         return
       }
 
@@ -63,7 +63,7 @@ class NotesRouter {
 
       if (response.message) {
         res.status(500)
-        res.send({ 'error': response.message })
+        res.send({ error: response.message })
         return
       }
 
@@ -71,12 +71,12 @@ class NotesRouter {
     })
 
     this.app.put('/:id', async (req, res) => {
-      var note
+      let note
       try {
         note = this.noteMapper.editNoteToDomain(req)
       } catch (error) {
         res.status(400)
-        res.send({ 'error': error })
+        res.send({ error: error })
         return
       }
 
@@ -84,7 +84,7 @@ class NotesRouter {
 
       if (response.message) {
         res.status(500)
-        res.send({ 'error': response.message })
+        res.send({ error: response.message })
         return
       }
 

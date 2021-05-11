@@ -17,13 +17,13 @@ authStub.getAuthStub()
 // Require app after mocking firebase token verification
 const app = require('../../../index')
 
-let name = Math.random().toString(36).substring(7)
-let newMembers = ['jane@gmail.com', 'doe@gmail.com']
+const name = Math.random().toString(36).substring(7)
+const newMembers = ['jane@gmail.com', 'doe@gmail.com']
 
-let team = {
-  'name': name,
-  'admin': 'admin@gmail.com',
-  'members': ['john@gmail.com', 'dawg@gmail.com']
+const team = {
+  name: name,
+  admin: 'admin@gmail.com',
+  members: ['john@gmail.com', 'dawg@gmail.com']
 }
 
 let insertedTeam = team

@@ -12,59 +12,51 @@ class TeamMapper {
   }
 
   mapGetTeam (req) {
-    var map = this.genericMapper.map(this.validateId.bind(this), req.params)
-    var model = new Team(map.id, null, null, null)
-    return model
+    const map = this.genericMapper.map(this.validateId.bind(this), req.params)
+    return new Team(map.id, null, null, null)
   }
 
   mapCreateTeam (req) {
-    var map = this.genericMapper.map(this.validateTeam.bind(this), req.body)
-    var model = new Team(null, map.name, map.admin, map.members)
-    return model
+    const map = this.genericMapper.map(this.validateTeam.bind(this), req.body)
+    return new Team(null, map.name, map.admin, map.members)
   }
 
   mapEditTeam (req) {
-    let newTeam = { ...req.params, ...req.body }
-    var map = this.genericMapper.map(this.validateTeamWithId.bind(this), newTeam)
-    var model = new Team(map.id, map.name, map.admin, map.members)
-    return model
+    const newTeam = { ...req.params, ...req.body }
+    const map = this.genericMapper.map(this.validateTeamWithId.bind(this), newTeam)
+    return new Team(map.id, map.name, map.admin, map.members)
   }
 
   mapDeleteTeam (req) {
-    var map = this.genericMapper.map(this.validateId.bind(this), req.params)
-    var model = new Team(map.id, null, null, null)
-    return model
+    const map = this.genericMapper.map(this.validateId.bind(this), req.params)
+    return new Team(map.id, null, null, null)
   }
 
   validateEmpty (team) {
-    return Joi.validate(team, Joi.object().required())
+    return Joi.object().required().validate(team)
   }
 
   validateId (team) {
-    return Joi.validate(team, Joi.object({
+    return Joi.object({
       id: Joi.string().required()
-    }).required())
+    }).required().validate(team)
   }
 
   validateTeamWithId (team) {
-    var model = Joi.validate(team, Joi.object({
+    return Joi.object({
       id: Joi.string().required(),
       name: Joi.string().required(),
       admin: Joi.string().required(),
       members: Joi.array().items(Joi.string()).required()
-    }))
-
-    return model
+    }).validate(team)
   }
 
   validateTeam (team) {
-    var model = Joi.validate(team, Joi.object({
+    return Joi.object({
       name: Joi.string().required(),
       admin: Joi.string().required(),
       members: Joi.array().items(Joi.string()).required()
-    }))
-
-    return model
+    }).validate(team)
   }
 }
 

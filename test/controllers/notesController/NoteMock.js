@@ -1,16 +1,15 @@
 class NoteMock {
   createReqNotesSessions (sessionId, user) {
-    let req = {
+    return {
       params: {
         session_id: sessionId,
         user: user
       }
     }
-    return req
   }
 
   createReqAddNote (description, user, sessionId, topic) {
-    let req = {
+    return {
       body: {
         description: description,
         user: user,
@@ -18,11 +17,10 @@ class NoteMock {
         topic: topic
       }
     }
-    return req
   }
 
   createReqEditNote (id, description, user, sessionId, topic) {
-    let req = {
+    return {
       body: {
         id: id,
         description: description,
@@ -31,20 +29,18 @@ class NoteMock {
         topic: topic
       }
     }
-    return req
   }
 
   createReqDeleteNote (id) {
-    let req = {
+    return {
       params: {
         note_id: id
       }
     }
-    return req
   }
 
   createRes () {
-    let res = {
+    return {
       sendCalledWith: '',
       statusCalledWith: 200,
       status: function (arg) {
@@ -54,7 +50,6 @@ class NoteMock {
         this.sendCalledWith = arg
       }
     }
-    return res
   }
 
   createEmptyReq () {

@@ -4,14 +4,12 @@ class SessionsRepository {
     this.table = 'sessions'
   }
 
-  async getSession (session) {
-    return this.db.executeGetDB(this.table, session)
+  async getAllSessions (meetingId) {
+    return this.db.executeGetDB(this.table, meetingId)
   }
 
-  // todo : getAllSession of a meeting
-  // eslint-disable-next-line no-use-before-define
-  async getAllSessions (meeting) {
-    return this.db.executeGetDB(this.table)
+  async getSession (session) {
+    return this.db.executeGetDB(this.table, session)
   }
 
   async createSession (session) {

@@ -5,17 +5,15 @@ class SessionController {
     this.sessionRepository = sessionRepository
   }
 
-  async getAllSessions (meeting) {
-    return this.sessionRepository.getAllSessions(meeting)
+  async getAllSessions (meetingId) {
+    return this.sessionRepository.getAllSessions(meetingId)
   }
 
   async getSession (session) {
-    this.validateSessionId(session)
-    return this.sessionRepository.getSession(session.getIdObject())
+    return this.sessionRepository.getSession(session)
   }
 
   async createSession (session) {
-    this.validateSession(session)
     return this.sessionRepository.createSession(session.getSession())
   }
 
@@ -30,23 +28,23 @@ class SessionController {
   }
 
   validateSessionId (session) {
-    Joi.validate(session, Joi.object({
+    Joi.object({
       id: Joi.string().required()
-    }))
+    }).validate(session)
   }
 
   validateFullSession (session) {
-    Joi.validate(session, Joi.object({
+    Joi.object({
       id: Joi.string().required(),
       topics: Joi.array().items(Joi.string()).required(),
       timestamp: Joi.date().timestamp().required()
-    }))
+    }).validate(session)
   }
 
   validateSession (session) {
-    Joi.validate(session, Joi.object({
+    Joi.object({
       topics: Joi.array().items(Joi.string()).required()
-    }))
+    }).validate(session)
   }
 }
 module.exports = SessionController

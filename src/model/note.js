@@ -15,6 +15,16 @@ class Note {
       session_id: this.sessionId
     }
   }
+
+  getFilter () {
+    return {
+      id: 'EQUALS',
+      topic: 'EQUALS',
+      description: 'EQUALS',
+      user: 'EQUALS',
+      sessionId: 'EQUALS'
+    }
+  }
 }
 
 module.exports = Note

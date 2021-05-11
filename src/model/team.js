@@ -15,6 +15,14 @@ class Team {
       members: this.members
     }
   }
+
+  getFilter () {
+    return {
+      name: 'EQUALS',
+      admin: 'EQUALS',
+      members: 'CONTAINS'
+    }
+  }
 }
 
 module.exports = Team

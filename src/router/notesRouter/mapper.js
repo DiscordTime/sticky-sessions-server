@@ -3,7 +3,7 @@ const Joi = require('joi')
 
 class NotesMapper {
   mapAddNoteToDomain (req) {
-    const { error } = Joi.validate(req.body, this.bodyFullJoiSchema())
+    const { error } = this.bodyFullJoiSchema().validate(req.body)
     if (error) {
       throw error.details[0].message
     }
@@ -25,7 +25,7 @@ class NotesMapper {
   }
 
   mapGetNotesQueryToDomain (req) {
-    const { error } = Joi.validate(req.query, this.getNotesJoiSchema())
+    const { error } = this.getNotesJoiSchema().validate(req.query)
     if (error) {
       throw error.details[0].message
     }
@@ -43,7 +43,7 @@ class NotesMapper {
   }
 
   deleteNoteToDomain (req) {
-    const { error } = Joi.validate(req.params, this.idNoteJoiSchema())
+    const { error } = this.idNoteJoiSchema().validate(req.params)
     if (error) {
       throw error.details[0].message
     }
@@ -57,12 +57,12 @@ class NotesMapper {
   }
 
   editNoteToDomain (req) {
-    const { error } = Joi.validate(req.params, this.idNoteJoiSchema())
+    const { error } = this.idNoteJoiSchema().validate(req.params)
     if (error) {
       throw error.details[0].message
     }
 
-    const { errorBody } = Joi.validate(req.body, this.bodyFullJoiSchema())
+    const { errorBody } = this.bodyFullJoiSchema().validate(req.body)
     if (errorBody) {
       throw errorBody.details[0].message
     }
