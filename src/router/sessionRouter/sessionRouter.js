@@ -41,9 +41,9 @@ class SessionRouter {
 
     this.app.delete('/:id', (req, res) => {
       this.genericRouter.execute(
-          this.sessionController.deleteSession.bind(this.sessionController),
-          this.sessionMapper.mapDeleteSession.bind(this.sessionMapper),
-          req, res)
+        this.sessionController.deleteSession.bind(this.sessionController),
+        this.sessionMapper.mapDeleteSession.bind(this.sessionMapper),
+        req, res)
     })
 
     return this.app

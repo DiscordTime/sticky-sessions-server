@@ -12,7 +12,8 @@ class Note {
       topic: this.topic,
       description: this.description,
       user: this.user,
-      session_id: this.sessionId
+      session_id: this.sessionId, //TODO: Remove redundancy used for retrocompatibility
+      sessionId: this.sessionId
     }
   }
 
@@ -22,7 +23,8 @@ class Note {
       topic: 'EQUALS',
       description: 'EQUALS',
       user: 'EQUALS',
-      sessionId: 'EQUALS',
+      session_id: 'EQUALS', //TODO: Remove redundancy used for retrocompatibility 
+      sessionId: 'EQUALS'
     }
   }
 }

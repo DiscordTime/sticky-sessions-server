@@ -7,7 +7,7 @@ const it = require('mocha').it
 const ReqMock = require('./reqMock')
 const reqMock = new ReqMock()
 
-const NotesMapper = require('./../../src/router/notesRouter/mapper')
+const NotesMapper = require('./../../src/router/noteRouter/noteMapper')
 const notesMapper = new NotesMapper()
 
 describe('Notes Router Mapper', function () {

@@ -54,7 +54,7 @@ class SessionMapper {
     var model = Joi.validate(session, Joi.object({
       id: Joi.string().required(),
       topics: Joi.array().required(),
-      timestamp: Joi.string().required(),
+      timestamp: Joi.string().required()
     }))
 
     return model

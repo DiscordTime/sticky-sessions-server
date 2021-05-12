@@ -1,4 +1,4 @@
-const NoteRepository = require('./noteRepository')
+const NoteRepository = require('./noteRepository/noteRepository')
 const SessionRepository = require('./sessionRepository')
 const TeamRepository = require('./teamRepository/teamRepository')
 const MeetRepository = require('./meetRepository/meetRepository')
