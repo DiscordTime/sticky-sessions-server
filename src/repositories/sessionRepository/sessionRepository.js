@@ -13,7 +13,7 @@ class SessionsRepository {
   }
 
   async createSession (session) {
-    return this.db.executeInsert(this.table, session)
+    return this.db.executeInsert(this.table, session.getSession())
   }
 
   async deleteSession (id) {
@@ -21,7 +21,8 @@ class SessionsRepository {
   }
 
   async editSession (id, session) {
-    return this.db.executeUpdateDB(this.table, id, session)
+    delete session.id
+    return this.db.executeUpdateDB(this.table, id, session.getSession())
   }
 }
 

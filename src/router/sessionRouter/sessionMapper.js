@@ -22,6 +22,8 @@ class SessionMapper {
   mapCreateSession (req) {
     var map = this.genericMapper.map(this.validateSession.bind(this), req.body)
     var model = new Session(null, map.topics, map.timestamp, map.meetId)
+    console.log("map: ", JSON.stringify(map))
+    console.log("model: ", JSON.stringify(model))
     return model
   }
 
@@ -54,7 +56,7 @@ class SessionMapper {
     var model = Joi.validate(session, Joi.object({
       id: Joi.string().required(),
       topics: Joi.array().required(),
-      timestamp: Joi.string().required(),
+      timestamp: Joi.string().required()
     }))
 
     return model

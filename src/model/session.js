@@ -3,23 +3,13 @@ class Session {
     this.id = id
     this.topics = topics
     this.timestamp = timestamp
-    this.meetId = this.meetId
+    this.meetId = meetId
   }
 
   getSession () {
-    var resp = {}
-    if (this.topics !== undefined) {
-      resp['topics'] = this.topics
-    }
-    if (this.timestamp !== undefined) {
-      resp['timestamp'] = this.timestamp
-    }
-    return resp
-  }
-
-  getIdObject () {
     return {
-      id: this.id
+      topics: this.topics,
+      timestamp: this.timestamp
     }
   }
 

@@ -1,10 +1,10 @@
 class Note {
-  constructor (id, topic, description, user, sessionId) {
+  constructor (id, topic, description, user, session_id) {
     this.id = id
     this.topic = topic
     this.description = description
     this.user = user
-    this.sessionId = sessionId
+    this.session_id = session_id
   }
 
   getNote () {
@@ -12,7 +12,7 @@ class Note {
       topic: this.topic,
       description: this.description,
       user: this.user,
-      session_id: this.sessionId
+      session_id: this.session_id,
     }
   }
 
@@ -22,7 +22,7 @@ class Note {
       topic: 'EQUALS',
       description: 'EQUALS',
       user: 'EQUALS',
-      sessionId: 'EQUALS',
+      session_id: 'EQUALS'
     }
   }
 }

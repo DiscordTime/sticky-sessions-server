@@ -4,7 +4,6 @@ class GenericMapper {
     if (error) {
       throw error.details[0].message
     }
-    console.log("value: " + JSON.stringify(value))
     return value
   }
 }

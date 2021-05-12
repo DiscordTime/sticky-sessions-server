@@ -9,7 +9,6 @@ class Team {
   // returns javascript object representation of team model
   getTeam () {
     return {
-      id: this.id,
       name: this.name,
       admin: this.admin,
       members: this.members

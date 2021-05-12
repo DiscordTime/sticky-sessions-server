@@ -3,11 +3,11 @@ const sinon = require('sinon')
 const auth = require('../../../src/middlewares/auth')
 
 class AuthStub {
-  constructor () {
+  constructor (userName) {
     if (!AuthStub.instance) {
       this.stub = sinon.stub(auth, 'verifyToken')
         .callsFake(function (req, _, next) {
-          req.name = 'Tester'
+          req.name = userName
           return next()
         })
       AuthStub.instance = this
@@ -16,7 +16,7 @@ class AuthStub {
   }
 }
 
-module.exports.getAuthStub = function () {
-  const instance = new AuthStub()
+module.exports.getAuthStub = function (userName) {
+  const instance = new AuthStub(userName)
   Object.freeze(instance)
 }
