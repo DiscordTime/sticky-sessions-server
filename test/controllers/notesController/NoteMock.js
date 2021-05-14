@@ -1,33 +1,33 @@
 class NoteMock {
-  createReqNotesSessions (session_id, user) {
+  createReqNotesSessions (sessionId, user) {
     let req = {
       params: {
-        session_id: session_id,
+        sessionId: sessionId,
         user: user
       }
     }
     return req
   }
 
-  createReqAddNote (description, user, session_id, topic) {
+  createReqAddNote (description, user, sessionId, topic) {
     let req = {
       body: {
         description: description,
         user: user,
-        session_id: session_id,
+        sessionId: sessionId,
         topic: topic
       }
     }
     return req
   }
 
-  createReqEditNote (id, description, user, session_id, topic) {
+  createReqEditNote (id, description, user, sessionId, topic) {
     let req = {
       body: {
         id: id,
         description: description,
         user: user,
-        session_id: session_id,
+        sessionId: sessionId,
         topic: topic
       }
     }

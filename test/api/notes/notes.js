@@ -22,7 +22,7 @@ var noteId
 let note = {
   'topic': 'test',
   'description': 'API Testing',
-  'session_id': 'test'
+  'sessionId': 'test'
 }
 
 describe('Notes API', function () {
@@ -46,7 +46,7 @@ describe('Notes API', function () {
     it('Should get notes from session', function () {
       return chai.request(app)
         .get('/notes')
-        .query({ session_id: note.session_id })
+        .query({ sessionId: note.sessionId })
         .then((res) => {
           res.should.have.status(200)
           res.body.should.be.a('array')
@@ -54,12 +54,10 @@ describe('Notes API', function () {
           var insertedNote = {
             'topic': note.topic,
             'description': note.description,
-            'session_id': note.session_id,
+            'sessionId': note.sessionId,
             'id': noteId,
             'user': userName
           }
-          
-          console.log("GET result: ", res.body)
 
           expect(res.body).deep.contains(insertedNote)
         })

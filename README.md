@@ -59,7 +59,7 @@ These are the `topics` which will be associated with the `session`.
 #### **Edit Session**
 To edit a `Session`, we do a `POST` to the following:
 ```
-/sessions/:session_id
+/sessions/:sessionId
 ```
 We need to send the following information in a `JSON` format
 ``` JSON
@@ -72,7 +72,7 @@ We need to send the following information in a `JSON` format
 #### **Delete Session**
 To delete a `Session`, we do a `DELETE` to the following:
 ```
-/sessions/:session_id
+/sessions/:sessionId
 ```
 
 #### **Add Note**
@@ -84,7 +84,7 @@ We need to send the following information in a `JSON` format:
 ``` JSON
 {
   "topic" : "<topic which you want to add the note>",
-  "session_id": "<id of session>",
+  "sessionId
   "user": "<name of the user that is adding the note>",
   "description": "<what you want to write>"
 }
@@ -93,9 +93,9 @@ We need to send the following information in a `JSON` format:
 #### **Get Notes from Session**
 To get all the `Notes` from a `Session`, we do a `GET` to the following:
 ```
-/notes/:session_id
+/notes/:sessionId
 ```
-Where the `session_id` is the `id` of the `session` which you want all of the `notes` from.
+Where the `sessionId` is the `id` of the `session` which you want all of the `notes` from.
 
 #### **Edit Note**
 To edit a `Note`, we do a `POST` to the following:
@@ -107,7 +107,7 @@ We need to send the following information in a `JSON` format:
 {
   "id": "<id of the note>",
   "topic" : "<topic which you want your note to be>",
-  "session_id": "<id of session>",
+  "sessionId": "<id of session>",
   "user": "<name of the user>",
   "description": "<what you want to write>"
 }

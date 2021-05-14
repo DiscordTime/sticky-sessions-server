@@ -18,6 +18,10 @@ class FirestoreDB {
   }
 
   async executeGetDB (table, data) {
+    if (data && Object.keys(data).length === 0 && data.constructor === Object) {
+      data = undefined
+    }
+
     console.log('Going to GET', data, 'on ', table)
     var query = db.collection(table)
 

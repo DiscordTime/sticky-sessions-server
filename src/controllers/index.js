@@ -1,14 +1,14 @@
 const NoteController = require('./noteController')
 const SessionController = require('./sessionController')
 const TeamController = require('./teamController')
-const MeetController = require('./meetController')
+const MeetingController = require('./meetingController')
 
 class ControllersProvider {
-  constructor (noteRepository, sessionRepository, teamRepository, meetRepository) {
+  constructor (noteRepository, sessionRepository, teamRepository, meetingRepository) {
     this.noteRepository = noteRepository
     this.sessionRepository = sessionRepository
     this.teamRepository = teamRepository
-    this.meetRepository = meetRepository
+    this.meetingRepository = meetingRepository
   }
 
   getNotesController () {
@@ -23,8 +23,8 @@ class ControllersProvider {
     return new TeamController(this.teamRepository)
   }
 
-  getMeetsController () {
-    return new MeetController(this.meetRepository)
+  getMeetingsController () {
+    return new MeetingController(this.meetingRepository)
   }
 }
 

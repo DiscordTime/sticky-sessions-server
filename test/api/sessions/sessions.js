@@ -12,12 +12,12 @@ chai.use(chaiHttp)
 chai.should()
 
 const authStub = require('../auth')
-authStub.getAuthStub("Tester")
+authStub.getAuthStub('Tester')
 
 // Require app after mocking firebase token verification
 const app = require('../../../index')
 
-var session_id
+var sessionId
 let meeting = {
   'meetId': '10'
 }
@@ -41,7 +41,7 @@ describe('Session API', function () {
 
           expect(session.topics).deep.equal(res.body.topics)
 
-          session_id = res.body.id
+          sessionId = res.body.id
           session = res.body
         })
     })
@@ -50,7 +50,7 @@ describe('Session API', function () {
   describe('/GET a session', function () {
     it('Should get a session', function () {
       return chai.request(app)
-        .get('/sessions/' + session_id)
+        .get('/sessions/' + sessionId)
         .then((res) => {
           res.should.have.status(200)
           res.body.should.be.a('object')
@@ -77,10 +77,10 @@ describe('Session API', function () {
     it('Should update a session', function () {
       let editedSession = {
         'topics': ['newTopic', 'topic2'],
-        'timestamp': '2381789312',
+        'timestamp': '2381789312'
       }
       return chai.request(app)
-        .put('/sessions/' + session_id)
+        .put('/sessions/' + sessionId)
         .send(editedSession)
         .then((res) => {
           res.should.have.status(200)
@@ -92,7 +92,7 @@ describe('Session API', function () {
   describe('/DELETE session', function () {
     it('Should delete session', function () {
       return chai.request(app)
-        .delete('/sessions/' + session_id)
+        .delete('/sessions/' + sessionId)
         .then((res) => {
           res.should.have.status(200)
           res.body.should.be.a('object')

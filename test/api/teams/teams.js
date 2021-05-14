@@ -9,7 +9,7 @@ const expect = chai.expect
 chai.use(chaiHttp)
 chai.should()
 const authStub = require('../auth')
-authStub.getAuthStub("Tester")
+authStub.getAuthStub('Tester')
 // Require app after mocking firebase token verification
 const app = require('../../../index')
 let name = Math.random().toString(36).substring(7)

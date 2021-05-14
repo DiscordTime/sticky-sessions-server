@@ -1,5 +1,3 @@
-const Joi = require('joi')
-
 class SessionController {
   constructor (sessionRepository) {
     this.sessionRepository = sessionRepository

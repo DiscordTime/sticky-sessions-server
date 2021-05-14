@@ -3,7 +3,7 @@ class ReqMock {
     return {
       body: {
         description: 'test note',
-        session_id: 'abcz',
+        sessionId: 'abcz',
         topic: 'start'
       }
     }
@@ -21,7 +21,7 @@ class ReqMock {
   mockGetNoteCorrectReq () {
     return {
       query: {
-        session_id: 'abcz'
+        sessionId: 'abcz'
       }
     }
   }
@@ -29,7 +29,7 @@ class ReqMock {
   mockGetNoteTypeFilterCorrectReq () {
     return {
       query: {
-        session_id: 'abcz'
+        sessionId: 'abcz'
       },
       name: 'Tester'
     }
