@@ -3,12 +3,12 @@ class NotesRepository {
     this.db = db
   }
 
-  async getNotes (filter) {
-    return this.db.executeGetDB('notes', filter)
+  async getNotes (note) {
+    return this.db.executeGetDB('notes', note)
   }
 
   async addNewNoteToSession (note) {
-    return this.db.executeInsert('notes', note)
+    return this.db.executeInsert('notes', note.getNote())
   }
 
   async deleteNote (noteId) {
@@ -16,7 +16,7 @@ class NotesRepository {
   }
 
   async editNote (noteId, note) {
-    return this.db.executeUpdateDB('notes', noteId, note)
+    return this.db.executeUpdateDB('notes', noteId, note.getNote())
   }
 }
 

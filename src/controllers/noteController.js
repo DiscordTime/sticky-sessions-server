@@ -4,11 +4,11 @@ class NoteController {
   }
 
   async getNotesFromSession (note) {
-    return this.noteRepository.getNotes(note.getNote())
+    return this.noteRepository.getNotes(note)
   }
 
   async addNewNoteToSession (note) {
-    return this.noteRepository.addNewNoteToSession(note.getNote())
+    return this.noteRepository.addNewNoteToSession(note)
   }
 
   async deleteNote (note) {
@@ -16,7 +16,7 @@ class NoteController {
   }
 
   async editNote (note) {
-    return this.noteRepository.editNote(note.id, note.getNote())
+    return this.noteRepository.editNote(note.id, note)
   }
 }
 

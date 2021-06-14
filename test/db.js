@@ -1,9 +1,9 @@
 class DBMock {
   async executeGetDB (table, data) {
     console.log(table)
-    if (!data.session_id) {
+    if (!data.sessionId) {
       throw new Error('No session id passed')
-    } else if (data.session_id === -1) {
+    } else if (data.sessionId === -1) {
       throw new Error('invalid session id')
     } else {
       return [1, 2, 3]

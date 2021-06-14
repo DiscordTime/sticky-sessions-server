@@ -1,4 +1,5 @@
 const admin = require('firebase-admin')
+const FilterMapper = require('../FilterMapper')
 const db = admin.firestore()
 const settings = { timestampsInSnapshots: true }
 db.settings(settings)
@@ -17,17 +18,26 @@ class FirestoreDB {
   }
 
   async executeGetDB (table, data) {
+    if (data && Object.keys(data).length === 0 && data.constructor === Object) {
+      data = undefined
+    }
+
     console.log('Going to GET', data, 'on ', table)
     var query = db.collection(table)
 
     if (data) {
       console.log('filtering')
+      var filter = data.getFilter()
       for (var field in data) {
         if (data[field] !== undefined && data[field] !== null) {
           if (field === 'id') {
             query = query.doc(data[field])
           } else {
-            query = query.where(field, '==', data[field])
+            if (filter[field] !== undefined && filter[field] !== null) {
+              query = query.where(field, FilterMapper.toFirestore(filter[field]), data[field])
+            } else {
+              query = query.where(field, '==', data[field])
+            }
           }
         }
       }

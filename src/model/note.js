@@ -12,7 +12,17 @@ class Note {
       topic: this.topic,
       description: this.description,
       user: this.user,
-      session_id: this.sessionId
+      sessionId: this.sessionId
+    }
+  }
+
+  getFilter () {
+    return {
+      id: 'EQUALS',
+      topic: 'EQUALS',
+      description: 'EQUALS',
+      user: 'EQUALS',
+      sessionId: 'EQUALS'
     }
   }
 }

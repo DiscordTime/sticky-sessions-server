@@ -1,24 +1,24 @@
 class Session {
-  constructor (id, topics, timestamp) {
+  constructor (id, topics, timestamp, meetId) {
     this.id = id
     this.topics = topics
     this.timestamp = timestamp
+    this.meetId = meetId
   }
 
   getSession () {
-    var resp = {}
-    if (this.topics !== undefined) {
-      resp['topics'] = this.topics
+    return {
+      topics: this.topics,
+      timestamp: this.timestamp
     }
-    if (this.timestamp !== undefined) {
-      resp['timestamp'] = this.timestamp
-    }
-    return resp
   }
 
-  getIdObject () {
+  getFilter () {
     return {
-      id: this.id
+      id: 'EQUALS',
+      meetId: 'EQUALS',
+      topics: 'CONTAINS',
+      timestamp: 'EQUALS'
     }
   }
 }

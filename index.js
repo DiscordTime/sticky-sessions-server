@@ -24,10 +24,11 @@ const repositories = new RepositoriesProvider(db)
 const notesRepository = repositories.provideNotesRepository()
 const sessionsRepository = repositories.provideSessionsRepository()
 const teamsRepository = repositories.provideTeamsRepository()
+const meetingsRepository = repositories.provideMeetingsRepository()
 
 const ControllersProvider = env.controllers
 const controllersProvider = new ControllersProvider(notesRepository, sessionsRepository,
-  teamsRepository)
+  teamsRepository, meetingsRepository)
 
 const auth = require('./src/middlewares/auth')
 const RouterProvider = env.router

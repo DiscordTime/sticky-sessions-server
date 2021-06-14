@@ -12,7 +12,8 @@ chai.use(chaiHttp)
 chai.should()
 
 const authStub = require('../auth')
-authStub.getAuthStub()
+const userName = 'Tester'
+authStub.getAuthStub(userName)
 
 // Require app after mocking firebase token verification
 const app = require('../../../index')
@@ -21,7 +22,7 @@ var noteId
 let note = {
   'topic': 'test',
   'description': 'API Testing',
-  'session_id': 'test'
+  'sessionId': 'test'
 }
 
 describe('Notes API', function () {
@@ -45,12 +46,20 @@ describe('Notes API', function () {
     it('Should get notes from session', function () {
       return chai.request(app)
         .get('/notes')
-        .query({ session_id: 'test' })
+        .query({ sessionId: note.sessionId })
         .then((res) => {
           res.should.have.status(200)
           res.body.should.be.a('array')
 
-          expect(res.body[0].description).to.equal(note.description)
+          var insertedNote = {
+            'topic': note.topic,
+            'description': note.description,
+            'sessionId': note.sessionId,
+            'id': noteId,
+            'user': userName
+          }
+
+          expect(res.body).deep.contains(insertedNote)
         })
     })
   })

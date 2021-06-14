@@ -2,7 +2,7 @@ class NoteMock {
   createReqNotesSessions (sessionId, user) {
     let req = {
       params: {
-        session_id: sessionId,
+        sessionId: sessionId,
         user: user
       }
     }
@@ -14,7 +14,7 @@ class NoteMock {
       body: {
         description: description,
         user: user,
-        session_id: sessionId,
+        sessionId: sessionId,
         topic: topic
       }
     }
@@ -27,7 +27,7 @@ class NoteMock {
         id: id,
         description: description,
         user: user,
-        session_id: sessionId,
+        sessionId: sessionId,
         topic: topic
       }
     }
